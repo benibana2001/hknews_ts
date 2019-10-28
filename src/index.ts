@@ -1,4 +1,4 @@
-import * as Defer from './Defer'
+import * as HKNews from './HKNews'
 /*
     Defer.deferFunc(() => {console.log("1: hello defer")}, 100)
     .then(
@@ -7,22 +7,16 @@ import * as Defer from './Defer'
         () => {return Defer.deferFunc(() => {console.log("3: hello defer")}, 100)}
     )
     */
-const HKN_TOP_URL = 'https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty'
-const HKN_STORY_URL = 'https://hacker-news.firebaseio.com/v0/item/'
-const EXTENSION = '.json?print=pretty'
 
-function getStryURL (id: string): string {
-    return HKN_STORY_URL + id + EXTENSION
-}
+let c = new HKNews.Client()
+c.getTop(10)
+.then((value: any) => {
+    let ary: number[] = value
+    console.log(ary)
 
-class Print implements Defer.Writer {
-    write(txt: string): void {
-        console.log(txt)
-    }
-    constructor() { }
-}
-
-Defer.getHTHML(HKN_TOP_URL, new Print)
-    .then(() => {
-        console.log("DONE")
-    })
+    return c.getStry(ary[0])
+})
+.then((value: any) => {
+    let story: HKNews.Story = value
+    console.log(story)
+})
