@@ -9,14 +9,24 @@ import * as HKNews from './HKNews'
     */
 
 let c = new HKNews.Client()
-c.getTop(10)
-.then((value: any) => {
-    let ary: number[] = value
-    console.log(ary)
+// let s: string
+let r: Array<Promise<any>> = []
+let stories 
 
-    return c.getStry(ary[0])
-})
-.then((value: any) => {
-    let story: HKNews.Story = value
-    console.log(story)
-})
+c.getTop(10)
+    .then((value: any) => {
+        let ary: number[] = value
+        console.log(ary)
+
+        for (let i: number = 0; i < ary.length; i++) {
+            // r.push(c.getStry(i))
+            let cc = new HKNews.Client()
+            console.log(i)
+            r.push(cc.getStry(ary[i]))
+        }
+        Promise.all(r)
+            .then(() => {
+                console.log(r)
+                console.log(c.stories)
+            })
+    })

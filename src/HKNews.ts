@@ -33,6 +33,7 @@ class Client {
     private stryURL: string = ""
     private type: any = 'json'
     private rqst: XMLHttpRequest = new XMLHttpRequest()
+    public stories: any[] = []
 
     constructor() {}
 
@@ -75,6 +76,8 @@ class Client {
             this.rqst.onload = () => {
                 let response: any = this.rqst.response
                 // 返り値をAny型で処理
+                // console.log(response)
+                this.stories.push(response)
                 resolve(response)
             }
             this.rqst.send(null)
@@ -82,3 +85,6 @@ class Client {
     }
 }
 
+class ClientDwonloader {
+    
+}
