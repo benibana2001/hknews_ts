@@ -1,9 +1,9 @@
 import Story from './Story'
 import { StoryData } from './HKNews'
-import TopStories from './TopStories'
-export default class Stories {
+import TopStories from './TopStoryIDs'
+export default class TopStoryCollecter {
     private num: number = 0
-    private ids: number[] = []
+    private topStoryIDs: number[] = []
     public stories: Story[] = []
 
     constructor(num: number) {
@@ -16,7 +16,7 @@ export default class Stories {
             ts.get(this.num).then(
                 (val: number[]) => {
                     console.log(val)
-                    this.ids = val
+                    this.topStoryIDs = val
                     return ts.get(val[0])
                 }
             ).then(
@@ -24,9 +24,9 @@ export default class Stories {
                     console.log(val)
                     // 一時的にプロミスを保存
                     let strPrmss: Promise<any>[] = []
-                    for (let i = 0; i < this.ids.length; i++) {
+                    for (let i = 0; i < this.topStoryIDs.length; i++) {
                         let s: Story = new Story()
-                        strPrmss.push(s.get(this.ids[i]))
+                        strPrmss.push(s.get(this.topStoryIDs[i]))
                     }
     
                     Promise.all(strPrmss).then(

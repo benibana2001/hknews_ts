@@ -1,8 +1,8 @@
-import Stories from './Stories'
-let stories = new Stories(10)
-stories.getData().then(
+import TopStoryCollecter from './TopStoryCollecter'
+let tsCllctr = new TopStoryCollecter(10)
+tsCllctr.getData().then(
     () => {
-        console.log(stories.stories)
+        console.log(tsCllctr.stories)
     }
 )
 
