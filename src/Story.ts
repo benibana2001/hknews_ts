@@ -16,7 +16,6 @@ export default class Story extends Download{
 
     public get(id: number): Promise<any> {
         return new Promise((resolve, reject) => {
-            this.setRqst()
             this.id = id
             this.rqst.open("GET", this.stryURL)
             this.rqst.onload = () => {

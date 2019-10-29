@@ -5,9 +5,11 @@ export default abstract class Download {
     protected type: any = 'json'
     protected rqst: XMLHttpRequest = new XMLHttpRequest()
 
-    constructor() {}
+    constructor() {
+        this.setRqst()
+    }
 
-    protected setRqst() {
+    private setRqst() {
         // it's like a 孔明の罠. You cannot set responseType when state is LOADING or DONE
         if (this.rqst.readyState !== 4) this.rqst.responseType = this.type
     }
