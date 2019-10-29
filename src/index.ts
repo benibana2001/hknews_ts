@@ -1,9 +1,9 @@
 import TopStoryCollecter from './TopStoryCollecter'
-let tsCllctr = new TopStoryCollecter(10)
+let tsCllctr = new TopStoryCollecter()
 
-tsCllctr.setStryInstance().then(
+tsCllctr.setStryInstance(10).then(
     () => {
-        console.log(tsCllctr.top10Story)
+        console.log(tsCllctr.storyBundle)
     }
 )
 

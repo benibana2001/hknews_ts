@@ -2,38 +2,27 @@ import Story from './Story'
 import { StoryData } from './HKNews'
 import TopStories from './TopStoryIDs'
 export default class TopStoryCollecter {
-    private num: number = 0
+    private maxCntStryBundle: number = 10
     private topStoryIDs: number[] = []
-    public stories: Story[] = []
-    public top10Story: Story[] = []
+    public storyBundle: Story[] = []
 
-    constructor(num: number) {
-        this.num = num
-    }
+    constructor() {}
 
-    public getTopStoryIDs(): Promise<any> {
+    private getTopStoryIDs(): Promise<any> {
         let get = (resolve: any, reject: any) => {
             let ts: TopStories = new TopStories()
-            /*
-            ts.get(this.num).then(
-                (response: number[]) => {
-                    console.log(response)
-                    this.topStoryIDs = response
+            ts.get().then(
+                (responseJSON: number[]) => {
+                    this.topStoryIDs = responseJSON
                     resolve()
                 }
             )
-            */
-           ts.get().then(
-               (responseJSON: number[]) => {
-                   this.topStoryIDs = responseJSON
-                   resolve()
-               }
-           )
         }
         return new Promise(get)
     }
 
-    public setStryInstance(): Promise<any> {
+    public setStryInstance(num: number): Promise<any> {
+        this.maxCntStryBundle = num
         let f = (resolve: any, reject: any) => {
             this.getTopStoryIDs().then(
                 () => {
@@ -41,7 +30,7 @@ export default class TopStoryCollecter {
                     let top10: number[] = (this.topStoryIDs as []).slice(0, 10)
                     for (let i = 0; i < top10.length; i++) {
                         // set instance
-                        this.top10Story.push(new Story(top10[i]))
+                        this.storyBundle.push(new Story(top10[i]))
                     }
                     resolve()
                 }
@@ -51,32 +40,6 @@ export default class TopStoryCollecter {
     }
 
     /*
-    public getData(): Promise<any> {
-        let f = (resolve: any, reject: any): any => {
-            this.getTopStoryIDs().then(
-                () => {
-                    console.log(this.topStoryIDs)
-                    // 一時的にプロミスを保存
-                    let strPrmss: Promise<any>[] = []
-                    for (let i = 0; i < this.topStoryIDs.length; i++) {
-                        let s: Story = new Story()
-                        strPrmss.push(s.get(this.topStoryIDs[i]))
-                    }
-
-                    Promise.all(strPrmss).then(
-                        (values) => {
-                            this.stories = values
-                            resolve()
-                        }
-                    )
-                }
-            )
-        }
-        return new Promise(f)
-    }
-
-    */
-
     public appendStory(story: Story): void {
         this.stories.push(story)
     }
@@ -89,7 +52,6 @@ export default class TopStoryCollecter {
         return this.stories.length
     }
 
-    /*
     public iterator(): StoriesIterator {
         return new StoriesIterator(this)
     }
