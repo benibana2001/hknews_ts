@@ -10,25 +10,32 @@ export default class TopStoryCollecter {
         this.num = num
     }
 
+    public getTopStoryIDs(): Promise<any> {
+        let get = (resolve: any, reject: any) => {
+            let ts: TopStories = new TopStories()
+            ts.get(this.num).then(
+                (response: number[]) => {
+                    console.log(response)
+                    this.topStoryIDs = response
+                    resolve()
+                }
+            )
+        }
+        return new Promise(get)
+    }
+
     public getData(): Promise<any> {
         let f = (resolve: any, reject: any): any => {
             let ts: TopStories = new TopStories()
-            ts.get(this.num).then(
-                (val: number[]) => {
-                    console.log(val)
-                    this.topStoryIDs = val
-                    return ts.get(val[0])
-                }
-            ).then(
-                (val: StoryData) => {
-                    console.log(val)
+            this.getTopStoryIDs().then(
+                () => {
                     // 一時的にプロミスを保存
                     let strPrmss: Promise<any>[] = []
                     for (let i = 0; i < this.topStoryIDs.length; i++) {
                         let s: Story = new Story()
                         strPrmss.push(s.get(this.topStoryIDs[i]))
                     }
-    
+
                     Promise.all(strPrmss).then(
                         (values) => {
                             this.stories = values
