@@ -17,39 +17,25 @@ export default class TopStoryCollecter {
         return this.storyCollecter[index]
     }
 
-    private getTopStoryIDs(): Promise<any> {
-        let get = (resolve: any, reject: any) => {
-            let ts: TopStories = new TopStories()
-            ts.get().then(
-                (responseJSON: number[]) => {
-                    this.topStoryIDs = responseJSON
-                    resolve()
-                }
-            )
-        }
-        return new Promise(get)
+    private async getTpStryIDs(): Promise<any> {
+        // todo: Static関数で良さげ
+        let ts: TopStories = new TopStories()
+        let response: any = await ts.get()
+        this.topStoryIDs = response
     }
 
     public iterator(): StoriesIterator {
         return new StoriesIterator(this)
     }
 
-    public setStryInstance(num: number): Promise<any> {
+    public async setStryInstnc(num: number): Promise<any> {
         this.maxCntStryBundle = num
-        let f = (resolve: any, reject: any) => {
-            this.getTopStoryIDs().then(
-                () => {
-                    // this.topStoryIds
-                    let top10: number[] = (this.topStoryIDs as []).slice(0, 10)
-                    for (let i = 0; i < top10.length; i++) {
-                        // set instance
-                        this.storyCollecter.push(new Story(top10[i]))
-                    }
-                    resolve()
-                }
-            )
+        await this.getTpStryIDs()
+        let top10: number[] = (this.topStoryIDs as []).slice(0, 10)
+        for(let i = 0; i < top10.length; i++) {
+            // set instance
+            this.storyCollecter.push(new Story(top10[i]))
         }
-        return new Promise(f)
     }
 
     /*

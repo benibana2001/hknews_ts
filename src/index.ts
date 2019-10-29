@@ -1,27 +1,20 @@
 import TopStoryCollecter from './TopStoryCollecter'
 import StoriesIterator from './StoriesIterator'
 import Story from './Story'
+
 let tsCllctr = new TopStoryCollecter()
+let f = async (): Promise<any> => {
+    await tsCllctr.setStryInstnc(10)
+    console.log(tsCllctr.storyCollecter)
+    let iterator: StoriesIterator = tsCllctr.iterator()
 
-tsCllctr.setStryInstance(10).then(
-    () => {
-        console.log(tsCllctr.storyCollecter)
-        let iterator: StoriesIterator = tsCllctr.iterator()
-        
-        while(iterator.hasNext()) {
-            let s: Story = iterator.next()
-            s.fetch()
-        }
+    while (iterator.hasNext()) {
+        let s: Story = iterator.next()
+        s.fetch()
     }
-)
+}
+f()
 
-/*
-tsCllctr.getData().then(
-    () => {
-        console.log(tsCllctr.stories)
-    }
-)
-*/
 /*
 let e: Element = document.body
 let eDiv: Element = document.createElement('div')
