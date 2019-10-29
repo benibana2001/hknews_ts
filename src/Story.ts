@@ -20,23 +20,26 @@ export default class Story extends Download{
     }
 
     public async get(): Promise<any> {
-        /*
-        return new Promise((resolve, reject) => {
-            this.id = id
-            this.rqst.open("GET", this.stryURL)
-            this.rqst.onload = () => {
-                let response: any = this.rqst.response
-                // 返り値をAny型で処理
-                // this.stories.push(response)
-                resolve(response)
-            }
-            this.rqst.send(null)
-        })
-        */
         fetch(this.stryURL).then(
             function (response) {
+                console.log(response.json)
                 return response.json()
             }
         )
+    }
+
+    public fetch(): void {
+        console.log(this.stryURL)
+        this.get().then(
+            (response: any) => {
+                // todo: get()よりも先に走ってしまう
+                // getのasyncを確認
+                console.log(response)
+            }
+        )
+    }
+
+    public writeHTML(): void {
+
     }
 }

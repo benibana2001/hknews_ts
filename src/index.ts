@@ -7,12 +7,12 @@ tsCllctr.setStryInstance(10).then(
     () => {
         console.log(tsCllctr.storyCollecter)
         let iterator: StoriesIterator = tsCllctr.iterator()
-/*
+        
         while(iterator.hasNext()) {
             let s: Story = iterator.next()
             console.log(s)
+            s.fetch()
         }
-*/
     }
 )
 

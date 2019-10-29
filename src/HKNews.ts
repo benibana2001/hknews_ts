@@ -1,4 +1,4 @@
-export { Writer, StoryData }
+export { StoryData }
 
 function deferFunc(f: Function, t: number): Promise<any> {
     return new Promise((resolve, reject) => {
@@ -21,6 +21,3 @@ interface StoryData {
     url?: string
 }
 
-interface Writer {
-    write(txt: string): void
-}
