@@ -10,7 +10,6 @@ tsCllctr.setStryInstance(10).then(
         
         while(iterator.hasNext()) {
             let s: Story = iterator.next()
-            console.log(s)
             s.fetch()
         }
     }

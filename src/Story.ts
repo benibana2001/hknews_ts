@@ -20,20 +20,14 @@ export default class Story extends Download{
     }
 
     public async get(): Promise<any> {
-        fetch(this.stryURL).then(
-            function (response) {
-                console.log(response.json)
-                return response.json()
-            }
-        )
+        let response: any = await fetch(this.stryURL)
+        let json: any = await response.json()
+        return json
     }
 
     public fetch(): void {
-        console.log(this.stryURL)
         this.get().then(
             (response: any) => {
-                // todo: get()よりも先に走ってしまう
-                // getのasyncを確認
                 console.log(response)
             }
         )
