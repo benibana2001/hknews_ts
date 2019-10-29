@@ -4,6 +4,11 @@ export default class Story extends Download{
     private _id!: number
     private stryURL!: string
 
+    constructor(id: number) {
+        super()
+        this.id = id
+    }
+
     set id(id: number) {
         this._id = id
         // set stryURL
@@ -14,7 +19,8 @@ export default class Story extends Download{
         return this._id
     }
 
-    public get(id: number): Promise<any> {
+    public async get(): Promise<any> {
+        /*
         return new Promise((resolve, reject) => {
             this.id = id
             this.rqst.open("GET", this.stryURL)
@@ -26,5 +32,11 @@ export default class Story extends Download{
             }
             this.rqst.send(null)
         })
+        */
+        fetch(this.stryURL).then(
+            function (response) {
+                return response.json()
+            }
+        )
     }
 }

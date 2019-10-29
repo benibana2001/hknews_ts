@@ -5,6 +5,7 @@ export default class TopStoryCollecter {
     private num: number = 0
     private topStoryIDs: number[] = []
     public stories: Story[] = []
+    public top10Story: Story[] = []
 
     constructor(num: number) {
         this.num = num
@@ -13,6 +14,7 @@ export default class TopStoryCollecter {
     public getTopStoryIDs(): Promise<any> {
         let get = (resolve: any, reject: any) => {
             let ts: TopStories = new TopStories()
+            /*
             ts.get(this.num).then(
                 (response: number[]) => {
                     console.log(response)
@@ -20,15 +22,40 @@ export default class TopStoryCollecter {
                     resolve()
                 }
             )
+            */
+           ts.get().then(
+               (responseJSON: number[]) => {
+                   this.topStoryIDs = responseJSON
+                   resolve()
+               }
+           )
         }
         return new Promise(get)
     }
 
-    public getData(): Promise<any> {
-        let f = (resolve: any, reject: any): any => {
-            let ts: TopStories = new TopStories()
+    public setStryInstance(): Promise<any> {
+        let f = (resolve: any, reject: any) => {
             this.getTopStoryIDs().then(
                 () => {
+                    // this.topStoryIds
+                    let top10: number[] = (this.topStoryIDs as []).slice(0, 10)
+                    for (let i = 0; i < top10.length; i++) {
+                        // set instance
+                        this.top10Story.push(new Story(top10[i]))
+                    }
+                    resolve()
+                }
+            )
+        }
+        return new Promise(f)
+    }
+
+    /*
+    public getData(): Promise<any> {
+        let f = (resolve: any, reject: any): any => {
+            this.getTopStoryIDs().then(
+                () => {
+                    console.log(this.topStoryIDs)
                     // 一時的にプロミスを保存
                     let strPrmss: Promise<any>[] = []
                     for (let i = 0; i < this.topStoryIDs.length; i++) {
@@ -47,6 +74,8 @@ export default class TopStoryCollecter {
         }
         return new Promise(f)
     }
+
+    */
 
     public appendStory(story: Story): void {
         this.stories.push(story)
