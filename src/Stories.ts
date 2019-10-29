@@ -1,5 +1,6 @@
 import Story from './Story'
 import { StoryData } from './HKNews'
+import TopStories from './TopStories'
 export default class Stories {
     private num: number = 0
     private ids: number[] = []
@@ -11,12 +12,12 @@ export default class Stories {
 
     public getData(): Promise<any> {
         let f = (resolve: any, reject: any): any => {
-            let s: Story = new Story()
-            s.getTop(this.num).then(
+            let ts: TopStories = new TopStories()
+            ts.get(this.num).then(
                 (val: number[]) => {
                     console.log(val)
                     this.ids = val
-                    return s.getStry(val[0])
+                    return ts.get(val[0])
                 }
             ).then(
                 (val: StoryData) => {
@@ -25,7 +26,7 @@ export default class Stories {
                     let strPrmss: Promise<any>[] = []
                     for (let i = 0; i < this.ids.length; i++) {
                         let s: Story = new Story()
-                        strPrmss.push(s.getStry(this.ids[i]))
+                        strPrmss.push(s.get(this.ids[i]))
                     }
     
                     Promise.all(strPrmss).then(
