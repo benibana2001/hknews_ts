@@ -1,0 +1,1 @@
+just test for coding typescript using hacker-news-API.
