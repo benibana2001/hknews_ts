@@ -1,17 +1,16 @@
-/*
-import Stories from "./Stories"
 import Story from "./Story"
+import TopStoryCollecter from "./TopStoryCollecter"
 
 export default class StoriesIterator {
     public index: number = 0
-    public stories: Stories = new Stories
+    public stryCllctr!: TopStoryCollecter
 
-    constructor(s: Stories) {
-        this.stories = s
+    constructor(stryCllctr: TopStoryCollecter) {
+        this.stryCllctr = stryCllctr
     }
 
     public hasNext(): boolean {
-        if (this.index < this.stories.getLength()) {
+        if (this.index < this.stryCllctr.getCllctrLength()) {
             return true
         } else {
             return false
@@ -19,9 +18,8 @@ export default class StoriesIterator {
     }
 
     public next(): Story {
-        let s = this.stories.getStoryAt(this.index)
+        let s = this.stryCllctr.getStoryAt(this.index)
         this.index++
         return s
     }
 }
-*/
