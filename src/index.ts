@@ -11,7 +11,11 @@ let f = async (): Promise<any> => {
 
     while (iterator.hasNext()) {
         console.log("hello")
-        iterator.next()
+        iterator.next().then(
+            (sd: StoryData) => {
+                console.log(sd.title)
+            }
+        )
     }
 
 }

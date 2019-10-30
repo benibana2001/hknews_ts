@@ -20,17 +20,10 @@ export default class StoriesIterator {
 
     public async next(): Promise<any> {
         let si = this.stryCllctr.getStoryAt(this.index)
-        let sd!: StoryData
         this.index++
-        si.fetch().then(
-            () => {
-                let sd = si.storyData
-                return sd
-            }
-        ).then(
-            (sd: StoryData) => {
-                console.log(sd)
-            }
-        )
+
+        let sd: StoryData = await si.fetch()
+        return sd
+        // console.log(sd)
     }
 }

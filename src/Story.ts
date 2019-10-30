@@ -32,6 +32,7 @@ export default class Story extends Download{
         let response: StoryData = await this.get()
         // console.log(response)
         this.storyData = response
+        return response
     }
 
     public writeHTML(): void {
