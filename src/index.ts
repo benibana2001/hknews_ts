@@ -15,13 +15,11 @@ let f = async (): Promise<any> => {
 
     while (iterator.hasNext()) {
         console.log("hello")
-        iterator.next().then(
-            (sd: StoryData) => {
-                console.log(sd.title)
-                hw.write(body, sd.title)
-            }
-        )
+        let ff = async () => {
+            let sd: StoryData = await iterator.next()
+            hw.write(body, sd.title)
+        }
+        ff()
     }
-
 }
 f()
