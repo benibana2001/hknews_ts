@@ -1,6 +1,7 @@
 import TopStoryCollecter from './TopStoryCollecter'
 import StoriesIterator from './StoriesIterator'
 import Story from './Story'
+import { StoryData } from './HKNews'
 
 let tsCllctr = new TopStoryCollecter()
 let f = async (): Promise<any> => {
@@ -9,8 +10,14 @@ let f = async (): Promise<any> => {
     let iterator: StoriesIterator = tsCllctr.iterator()
 
     while (iterator.hasNext()) {
-        let s: Story = iterator.next()
-        s.fetch()
+        // let func = async (): Promise<any> => {
+            // let sd: StoryData = await iterator.next()
+            // console.log(sd)
+        // }
+        // func()
+        console.log("hello")
+        let sd = iterator.next()
+        console.log(sd)
     }
 }
 f()

@@ -1,8 +1,11 @@
 import Download from "./Download"
+import { StoryData } from "./HKNews"
+import HTMLWriter from "./HTMLWriter"
 
 export default class Story extends Download{
     private _id!: number
     private stryURL!: string
+    private storyData!: StoryData
 
     constructor(id: number) {
         super()
@@ -25,15 +28,14 @@ export default class Story extends Download{
         return json
     }
 
-    public fetch(): void {
-        this.get().then(
-            (response: any) => {
-                console.log(response)
-            }
-        )
+    public async fetch(): Promise<any> {
+        let response: StoryData = await this.get()
+        // console.log(response)
+        this.storyData = response
     }
 
     public writeHTML(): void {
-
+        let w: HTMLWriter = new HTMLWriter()
+        // w.write()
     }
 }
