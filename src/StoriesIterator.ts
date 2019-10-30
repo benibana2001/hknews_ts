@@ -1,5 +1,6 @@
 import Story from "./Story"
 import TopStoryCollecter from "./TopStoryCollecter"
+import { StoryData } from "./HKNews"
 
 export default class StoriesIterator {
     public index: number = 0
@@ -17,9 +18,19 @@ export default class StoriesIterator {
         }
     }
 
-    public next(): Story {
-        let s = this.stryCllctr.getStoryAt(this.index)
+    public async next(): Promise<any> {
+        let si = this.stryCllctr.getStoryAt(this.index)
+        let sd!: StoryData
         this.index++
-        return s
+        si.fetch().then(
+            () => {
+                let sd = si.storyData
+                return sd
+            }
+        ).then(
+            (sd: StoryData) => {
+                console.log(sd)
+            }
+        )
     }
 }

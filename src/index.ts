@@ -10,15 +10,10 @@ let f = async (): Promise<any> => {
     let iterator: StoriesIterator = tsCllctr.iterator()
 
     while (iterator.hasNext()) {
-        // let func = async (): Promise<any> => {
-            // let sd: StoryData = await iterator.next()
-            // console.log(sd)
-        // }
-        // func()
         console.log("hello")
-        let sd = iterator.next()
-        console.log(sd)
+        iterator.next()
     }
+
 }
 f()
 

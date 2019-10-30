@@ -5,7 +5,7 @@ import HTMLWriter from "./HTMLWriter"
 export default class Story extends Download{
     private _id!: number
     private stryURL!: string
-    private storyData!: StoryData
+    public storyData!: StoryData
 
     constructor(id: number) {
         super()
