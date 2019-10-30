@@ -6,7 +6,6 @@ import HTMLWriter from './HTMLWriter'
 
 let tsCllctr = new TopStoryCollecter()
 let hw = new HTMLWriter()
-let body: Element = document.body
 
 let f = async (): Promise<any> => {
     await tsCllctr.setStryInstnc(10)
@@ -17,7 +16,7 @@ let f = async (): Promise<any> => {
         console.log("hello")
         let ff = async () => {
             let sd: StoryData = await iterator.next()
-            hw.write(body, sd.title)
+            hw.write(sd)
         }
         ff()
     }

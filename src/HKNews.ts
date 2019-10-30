@@ -7,7 +7,7 @@ interface StoryData {
     kids?: any,
     score?: number,
     time?: number,
-    title: string,
+    title?: string,
     type?: string,
     url?: string
 }
