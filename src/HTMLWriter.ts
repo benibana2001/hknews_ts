@@ -1,11 +1,10 @@
 import Writer from "./InterfaceWriter";
 
 export default class HTMLWriter implements Writer {
-    public write(txt: string): void {
-        let e: Element = document.body
+    public write(parent: Element, txt: string): void {
         let div: Element = document.createElement('div')
 
         div.textContent = txt
-        e.appendChild(div)
+        parent.appendChild(div)
     }
 }

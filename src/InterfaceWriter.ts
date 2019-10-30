@@ -1,3 +1,3 @@
 export default interface Writer {
-    write(txt: string): void
+    write(parent: Element, txt: string): void
 }
