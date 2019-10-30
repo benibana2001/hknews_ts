@@ -1,5 +1,5 @@
 import Download from "./Download"
-import { StoryData } from "./HKNews"
+import { StoryData, URL } from "./HKNews"
 import HTMLWriter from "./HTMLWriter"
 
 export default class Story extends Download{
@@ -15,7 +15,7 @@ export default class Story extends Download{
     set id(id: number) {
         this._id = id
         // set stryURL
-        this.stryURL = this.HKN_STORY_URL + this.id + this.EXTENSION
+        this.stryURL = URL.HKN_STORY_URL + this.id + URL.EXTENSION
     }
 
     get id(): number {

@@ -1,4 +1,4 @@
-export { StoryData }
+export { StoryData, URL }
 
 function deferFunc(f: Function, t: number): Promise<any> {
     return new Promise((resolve, reject) => {
@@ -19,5 +19,17 @@ interface StoryData {
     title: string,
     type?: string,
     url?: string
+}
+
+type URLType = {
+    HKN_TOP_URL: string,
+    HKN_STORY_URL: string,
+    EXTENSION: string
+}
+
+const URL: URLType = {
+    HKN_TOP_URL: 'https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty',
+    HKN_STORY_URL: 'https://hacker-news.firebaseio.com/v0/item/',
+    EXTENSION: '.json?print=pretty'
 }
 
