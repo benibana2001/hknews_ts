@@ -1,14 +1,5 @@
 export { StoryData, URL }
 
-function deferFunc(f: Function, t: number): Promise<any> {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            f()
-            resolve(`${f} was occured`)
-        }, t)
-    })
-}
-
 interface StoryData {
     by?: string,
     descendant?: number[],
@@ -33,3 +24,15 @@ const URL: URLType = {
     EXTENSION: '.json?print=pretty'
 }
 
+/*
+** define some util function
+** this could be omitted
+*/
+function deferFunc(f: Function, t: number): Promise<any> {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            f()
+            resolve(`${f} was occured`)
+        }, t)
+    })
+}
