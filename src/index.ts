@@ -1,3 +1,5 @@
+import './scss/style.scss'
+
 import TopStoryCollecter from './TopStoryCollecter'
 import StoriesIterator from './StoriesIterator'
 import Story from './Story'
