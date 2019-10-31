@@ -1,4 +1,4 @@
-export { StoryData, URL, DOMCreator }
+export { StoryData, URL, DOMCreator, isOnPageBttm }
 
 interface StoryData {
     by?: string,
@@ -35,6 +35,19 @@ function deferFunc(f: Function, t: number): Promise<any> {
             resolve(`${f} was occured`)
         }, t)
     })
+}
+
+let isOnPageBttm = (): boolean => {
+    let elem: Element = document.body
+    let crrntWndwY: number = window.scrollY
+    let crrntWndwH: number = window.innerHeight
+    let crrntElemH: number = elem.scrollHeight
+
+    if (crrntWndwY + crrntWndwH === crrntElemH) {
+        return true
+        // alert("bottom")
+    }
+    return false
 }
 
 class DOMCreator {

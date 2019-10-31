@@ -2,7 +2,7 @@ import './scss/style.scss'
 
 import TopStoryCollecter from './TopStoryCollecter'
 import StoriesIterator from './StoriesIterator'
-import { StoryData } from './HKNews'
+import { StoryData, isOnPageBttm } from './HKNews'
 import HTMLWriter from './HTMLWriter'
 
 let tsCllctr = new TopStoryCollecter(30)
@@ -29,3 +29,16 @@ if (moreBtn !== null) {
         view()
     })
 }
+
+let ticking: boolean = false
+window.addEventListener('scroll', () => {
+    let lastScrllY: number = window.scrollY
+    if (!ticking) {
+        window.requestAnimationFrame(() => {
+            // console.log(isOnPageBttm())
+            if (isOnPageBttm()) view()
+            ticking = false
+        })
+        ticking = true
+    }
+})
