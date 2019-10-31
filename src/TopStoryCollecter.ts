@@ -7,14 +7,33 @@ export default class TopStoryCollecter {
     private topStoryIDs: number[] = []
     public storyCollecter: Story[] = []
 
-    constructor() {}
+    // a index of Story already instanciated
+    private index: number
 
-    public getCllctrLength() {
-        return this.storyCollecter.length
+    constructor(num: number) {
+        this.index = 0
+        this.maxCntStryBundle = num
     }
 
-    public getStoryAt(index: number) {
-        return this.storyCollecter[index]
+    // 初期化処理
+    public async init(): Promise<any> {
+        // TopStoryのIDを500件取得して保持
+        await this.getTpStryIDs()
+    }
+
+    // Storyインスタンスを追加
+    public async setStryInstnc(): Promise<any> {
+        // 初期化判定
+        if (this.index === 0) {
+            await this.getTpStryIDs()
+        }
+
+        // maxCntStryBundleの数だけインスタンスを作成して保持
+        let top10: number[] = this.topStoryIDs.slice(this.index, this.maxCntStryBundle)
+        for (let i = 0; i < top10.length; i++) {
+            // set instance
+            this.appendStory(new Story(top10[i]))
+        }
     }
 
     private async getTpStryIDs(): Promise<any> {
@@ -24,29 +43,20 @@ export default class TopStoryCollecter {
         this.topStoryIDs = response
     }
 
+    public getCllctrLength() {
+        return this.storyCollecter.length
+    }
+
+    public getStoryAt(index: number) {
+        return this.storyCollecter[index]
+    }
+
     public iterator(): StoriesIterator {
         return new StoriesIterator(this)
     }
 
-    // TopStoryのJSON配列を追加
-    // Storyインスタンスを追加
-    public async setStryInstnc(num: number): Promise<any> {
-        this.maxCntStryBundle = num
-
-        // TopStoryのIDを500件取得して保持
-        await this.getTpStryIDs()
-
-        // maxCntStryBundleの数だけインスタンスを作成して保持
-        let top10: number[] = (this.topStoryIDs as []).slice(0, this.maxCntStryBundle)
-        for(let i = 0; i < top10.length; i++) {
-            // set instance
-            this.storyCollecter.push(new Story(top10[i]))
-        }
-    }
-
-    /*
     public appendStory(story: Story): void {
-        this.stories.push(story)
+        this.storyCollecter.push(story)
+        this.index++
     }
- */
 }
