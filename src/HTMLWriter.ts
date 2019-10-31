@@ -3,8 +3,8 @@ import { StoryData } from "./HKNews";
 
 export default class HTMLWriter implements Writer {
     public write(sd: StoryData): void {
-        let body: Element = document.body
-        this.writeCard(body, sd)
+        let view: Element | null = document.getElementById('view')
+        if (view !== null) this.writeCard(view, sd)
     }
 
     private writeCard(parent: Element, sd: StoryData): void {
