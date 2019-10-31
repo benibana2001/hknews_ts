@@ -10,7 +10,7 @@ let tsCllctr = new TopStoryCollecter()
 let hw = new HTMLWriter()
 
 let f = async (): Promise<any> => {
-    await tsCllctr.setStryInstnc(10)
+    await tsCllctr.setStryInstnc(30)
     console.log(tsCllctr.storyCollecter)
     let iterator: StoriesIterator = tsCllctr.iterator()
 

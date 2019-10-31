@@ -31,7 +31,7 @@ export default class TopStoryCollecter {
     public async setStryInstnc(num: number): Promise<any> {
         this.maxCntStryBundle = num
         await this.getTpStryIDs()
-        let top10: number[] = (this.topStoryIDs as []).slice(0, 10)
+        let top10: number[] = (this.topStoryIDs as []).slice(0, this.maxCntStryBundle)
         for(let i = 0; i < top10.length; i++) {
             // set instance
             this.storyCollecter.push(new Story(top10[i]))
