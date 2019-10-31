@@ -6,44 +6,61 @@ body {
 #view{
   width: 788px;
   margin: 0 auto;
+  background-color: #fff;
+  box-shadow: 0 0 1px #aaa;
 }
 .card{
   // height: 50px;
-  // position: relative; // for score, which is absolute
-  display: flex;
+  position: relative; // for score, which is absolute
   border: 1px solid #e0e0e0;
   border-bottom: 0;
   a{
-    display: flex;
-    // height: 40px;
-    // padding: 10px 44px 10px 4px;
-    padding: 10px 5px;
-    padding-right: 44px;
-    background:#fefefe;
     line-height: 1.2em;
     color: #000;
     display: block;
+    padding: 10px 5px;
     text-decoration: none;
   }
-  a:hover{
+  .anchorArea{
+    padding: 10px 5px;
+    padding-right: 60px;
+  }
+  .anchorArea:hover{
     background: #F6F6EF;
+  }
+  .title{
+    margin-left: 4ex;
+    padding-left: 5px;
   }
   .rank{
     font-weight: lighter;
     text-align: right;
     width: 3.5ex;
     color: #666d74;
-    // position: absolute;
-    // left: 5px;
-    // top: 10px;
-  }
-  .title{
-    margin-left: 4ex;
-    padding-left: 5px;
+    position: absolute;
+    left: 5px;
+    top: 10px;
   }
   .score{
-    width: 30px;
     color: dodgerblue;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0;
+    z-index: 2;
+    width: 60px;
+    height: 100%;
+    text-align: center;
+    vertical-align: middle;
+    span{
+      display: inline-block;
+      width: 60px;
+      height: 17px;
+      margin: 11px 0;
+    }
+  }
+  .score:hover{
+    background-color: #F6F6EF;
   }
 }
 .card:last-child{
