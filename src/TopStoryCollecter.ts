@@ -3,16 +3,17 @@ import { StoryData } from './HKNews'
 import TopStories from './TopStoryIDs'
 import StoriesIterator from './StoriesIterator'
 export default class TopStoryCollecter {
-    private maxCntStryBundle: number = 10
-    private topStoryIDs: number[] = []
     public storyCollecter: Story[] = []
+    private topStoryIDs: number[] = []
 
+    // instance length
+    private sizeStoryBundle: number
     // a index of Story already instanciated
     private index: number
 
     constructor(num: number) {
         this.index = 0
-        this.maxCntStryBundle = num
+        this.sizeStoryBundle = num
     }
 
     // 初期化処理
@@ -29,11 +30,15 @@ export default class TopStoryCollecter {
         }
 
         // maxCntStryBundleの数だけインスタンスを作成して保持
-        let top10: number[] = this.topStoryIDs.slice(this.index, this.maxCntStryBundle)
-        for (let i = 0; i < top10.length; i++) {
+        let storyBundle: number[] = this.topStoryIDs.slice(this.index, this.index + this.sizeStoryBundle)
+        for (let i = 0; i < storyBundle.length; i++) {
             // set instance
-            this.appendStory(new Story(top10[i]))
+            this.appendStory(new Story(storyBundle[i]))
         }
+    }
+
+    public iterator(): StoriesIterator {
+        return new StoriesIterator(this)
     }
 
     private async getTpStryIDs(): Promise<any> {
@@ -49,10 +54,6 @@ export default class TopStoryCollecter {
 
     public getStoryAt(index: number) {
         return this.storyCollecter[index]
-    }
-
-    public iterator(): StoriesIterator {
-        return new StoriesIterator(this)
     }
 
     public appendStory(story: Story): void {
