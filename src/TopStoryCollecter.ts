@@ -28,9 +28,15 @@ export default class TopStoryCollecter {
         return new StoriesIterator(this)
     }
 
+    // TopStoryのJSON配列を追加
+    // Storyインスタンスを追加
     public async setStryInstnc(num: number): Promise<any> {
         this.maxCntStryBundle = num
+
+        // TopStoryのIDを500件取得して保持
         await this.getTpStryIDs()
+
+        // maxCntStryBundleの数だけインスタンスを作成して保持
         let top10: number[] = (this.topStoryIDs as []).slice(0, this.maxCntStryBundle)
         for(let i = 0; i < top10.length; i++) {
             // set instance
@@ -42,17 +48,5 @@ export default class TopStoryCollecter {
     public appendStory(story: Story): void {
         this.stories.push(story)
     }
-
-    public getStoryAt(index: number): Story {
-        return this.stories[index]
-    }
-
-    public getLength(): number {
-        return this.stories.length
-    }
-
-    public iterator(): StoriesIterator {
-        return new StoriesIterator(this)
-    }
-    */
+ */
 }

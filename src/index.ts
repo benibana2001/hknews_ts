@@ -24,3 +24,10 @@ let f = async (): Promise<any> => {
     }
 }
 f()
+
+let moreBtn: Element | null = document.getElementById('moreButton')
+if (moreBtn !== null) {
+    moreBtn.addEventListener('click', () => {
+        alert('click')
+    })
+}

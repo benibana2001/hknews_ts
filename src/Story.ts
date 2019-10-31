@@ -35,8 +35,10 @@ export default class Story extends Download{
         return response
     }
 
+    /*
     public writeHTML(): void {
         let w: HTMLWriter = new HTMLWriter()
         // w.write()
     }
+    */
 }

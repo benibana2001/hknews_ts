@@ -19,9 +19,9 @@ type URLType = {
 }
 
 const URL: URLType = {
-    HKN_TOP_URL: 'https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty',
+    HKN_TOP_URL: 'https://hacker-news.firebaseio.com/v0/topstories.json',
     HKN_STORY_URL: 'https://hacker-news.firebaseio.com/v0/item/',
-    EXTENSION: '.json?print=pretty'
+    EXTENSION: '.json'
 }
 
 /*
