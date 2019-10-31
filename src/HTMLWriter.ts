@@ -22,6 +22,9 @@ export default class HTMLWriter implements Writer {
         ****************************j
         */
 
+        // todo: Ranking をWriteする
+        // StoryCollector のみRanking(index)を知っている
+        // HTMLWriteクラスはIteratorクラスに持たせて next()メソッドで実行させる
         let card: DOMCreator = new DOMCreator('div', parent, 'card', null, null)
         if (typeof sd.url === 'string' && typeof sd.title === 'string' && typeof sd.score === 'number') {
             let anchorArea: DOMCreator = new DOMCreator('a', card.elem, 'anchorArea', sd.url, null)

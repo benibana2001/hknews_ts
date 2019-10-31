@@ -50,6 +50,9 @@ let isOnPageBttm = (): boolean => {
     return false
 }
 
+// todo: 不要なプロパティを削除
+// HTMLWriterでしか使用しないので has-a関係としてHTMLWriterに持たせる
+// todo: create()メソッドを使用して インスタンスは一つ立てればよい構造にする
 class DOMCreator {
     public elem!: Element
     private parent!: Element
