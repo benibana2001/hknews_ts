@@ -11,7 +11,7 @@ let hw = new HTMLWriter()
 
 let viewNext = async () => {
     let sd: StoryData = await iterator.next()
-    hw.write(sd)
+    // hw.write(sd)
 }
 let view = async (): Promise<any> => {
     await tsCllctr.setStryInstnc()
