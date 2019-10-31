@@ -1,4 +1,4 @@
-export { StoryData, URL }
+export { StoryData, URL, DOMCreator }
 
 interface StoryData {
     by?: string,
@@ -35,4 +35,37 @@ function deferFunc(f: Function, t: number): Promise<any> {
             resolve(`${f} was occured`)
         }, t)
     })
+}
+
+class DOMCreator {
+    public elem!: Element
+    private parent!: Element
+    private className!: string
+    private url!: string
+    private text!: string
+
+    constructor(tag: string | null, parent: Element, className: string | null, url: string | null, text: string | null) {
+        if (tag !== null) {
+            this.elem = document.createElement(tag)
+        }
+        if (parent !== null) {
+            this.parent = parent
+        }
+        if (className !== null) {
+            this.className = className
+            this.elem.className = className
+        }
+        if (url !== null) {
+            this.url = url
+            this.elem.setAttribute("href", url)
+        }
+        if (text !== null) {
+            this.text = text
+            this.elem.textContent = text
+        }
+    }
+
+    public add(): void {
+        this.parent.appendChild(this.elem)
+    }
 }
