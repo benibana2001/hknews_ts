@@ -8,28 +8,29 @@ export default class HTMLWriter implements Writer {
     }
 
     private writeCard(parent: Element, sd: StoryData): void {
+        // Create Card
         let card: Element = document.createElement('div')
-        let title: Element = document.createElement('a')
-
         card.className = "card"
-        title.className = "title"
-        
+      
+        // Set AnchorArea
+        let anchorArea: Element = document.createElement('a')
+        if (typeof sd.url === 'string') anchorArea.setAttribute("href", sd.url)
+
         // Add Score
-        if (typeof sd.score === 'number') this.createDIV(card, 'score', String(sd.score))
+        if (typeof sd.score === 'number') this.createDIV(anchorArea, 'score', String(sd.score))
 
         // Add Title
-        title.textContent = (typeof sd.title === 'string') ? sd.title : ""
-        if (typeof sd.url === 'string') title.setAttribute("href", sd.url)
-        card.appendChild(title)
+        if (typeof sd.title === 'string') this.createDIV(anchorArea, 'title', sd.title)
 
         // Append
+        card.appendChild(anchorArea)
         parent.appendChild(card)
     }
 
-    private createDIV(parent: Element, className: string, text: string): void {
+    private createDIV(parent: Element, className: string | null, text: string | null): void {
         let div: Element = document.createElement('div')
-        div.className = className
-        div.textContent = text
+        if(className !== null) div.className = className
+        if(text !== null) div.textContent = text
         parent.appendChild(div)
     }
 
