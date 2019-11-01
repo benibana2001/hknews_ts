@@ -10,7 +10,6 @@ let iterator: StoriesIterator = tsCllctr.iterator()
 let hw = new HTMLWriter()
 let stryAry: StoryData[] = []
 
-
 let viewNext = async () => {
     let sd: StoryData = await iterator.next()
     stryAry.push(sd)
@@ -20,7 +19,6 @@ let viewAry: Promise<any>[] = []
 
 let view = async (): Promise<any> => {
     await tsCllctr.setStryInstnc()
-    // console.log(tsCllctr.storyCollecter)
     while (iterator.hasNext()) {
         viewAry.push(viewNext())
     }
@@ -35,22 +33,11 @@ let sort = async (): Promise<any> => {
     for (let i = 0; i < sortedStryAry.length; i++) {
         hw.write(sortedStryAry[i])
     }
+    // 一度配列を空にする
+    stryAry = []
 }
 
 view()
-
-/*
-let parallel = async (): Promise<any> => {
-    await Promise.all([
-        view()
-    ])
-}
-
-(async (): Promise<any> => {
-    await parallel()
-    console.log("All DONE")
-})()
-*/
 
 let ticking: boolean = false
 window.addEventListener('scroll', () => {
@@ -64,11 +51,3 @@ window.addEventListener('scroll', () => {
         ticking = true
     }
 })
-/*
-let moreBtn: Element | null = document.getElementById('moreButton')
-if (moreBtn !== null) {
-    moreBtn.addEventListener('click', () => {
-        view()
-    })
-}
-*/

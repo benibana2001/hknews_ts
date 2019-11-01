@@ -4,16 +4,15 @@ import TopStories from './TopStoryIDs'
 import StoriesIterator from './StoriesIterator'
 export default class TopStoryCollecter {
     public storyCollecter: Story[] = []
-    private topStoryIDs: number[] = []
-
+    private allIDs: number[] = []
     // instance length
-    private sizeStoryBundle: number
+    private bundleIDLength: number
     // a index of Story already instanciated
     private index: number
 
     constructor(num: number) {
         this.index = 0
-        this.sizeStoryBundle = num
+        this.bundleIDLength = num
     }
 
     // 初期化処理
@@ -29,17 +28,10 @@ export default class TopStoryCollecter {
             await this.getTpStryIDs()
         }
 
-        // maxCntStryBundleの数だけインスタンスを作成して保持
-
-        // todo: 二回目以降 ループに入らない
-        let storyBundle: number[] = this.topStoryIDs.slice(this.index, this.index + this.sizeStoryBundle)
-        console.log(`this.index:`, this.index)
-        console.log(`this.sizeStoryBundle`, this.sizeStoryBundle)
-        console.log(`storyBundle`, storyBundle.length)
-        for (let i = this.index; i < storyBundle.length; i++) {
-        // for (let i = this.index; i < this.index + this.sizeStoryBundle; i++) {
-            // set instance
-            this.appendStory(new Story(storyBundle[i]))
+        let eachBundleIDs: number[] = this.allIDs.slice(this.index, this.index + this.bundleIDLength)
+        // インスタンスを作成して保持
+        for (let i = 0; i < eachBundleIDs.length; i++) {
+            this.appendStory(new Story(eachBundleIDs[i]))// set instance
         }
     }
 
@@ -51,7 +43,7 @@ export default class TopStoryCollecter {
         // todo: Static関数で良さげ
         let ts: TopStories = new TopStories()
         let response: any = await ts.get()
-        this.topStoryIDs = response
+        this.allIDs = response
     }
 
     public getCllctrLength() {
