@@ -1,18 +1,32 @@
+// VARIABLE
+$tab: 'screen and (max-width: 788px)';
+@mixin mediaquery($bp) {
+  @media #{$bp} {
+    @content;
+  }
+}
+
 // RESET
 body, h1 {
   margin: 0;
   padding: 0;
 }
+
+// MAIN
 body {
   background: #fafafa;
   font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
-  font-size: 16px;
+  font-size: 16px!important;
 }
+
 #view{
-  width: 788px;
+  width: 700px;
   margin: 0 auto 0;
   background-color: #fff;
   box-shadow: 0 0 1px #aaa;
+  @include mediaquery($tab) {
+    width: 100%;
+  }
   header{
     border-bottom: 1px solid #ddd;
     background-color: rgba(255,255,255,.95);
@@ -30,7 +44,6 @@ body {
       cursor: default;
       display: inline-block;
       padding: 0;
-      font-size: 16px;
       font-weight: 400;
       white-space: nowrap;
       text-overflow: ellipsis;
@@ -38,6 +51,7 @@ body {
     }
   }
 }
+
 .card{
   // height: 50px;
   position: relative; // for score, which is absolute
@@ -53,12 +67,12 @@ body {
   .anchorArea{
     padding: 10px 5px;
     padding-right: 60px;
-  }
-  .anchorArea:hover{
-    background: #F6F6EF;
-  }
-  .anchorArea:visited{
-    color: #888;
+    &:hover{
+      background: #F6F6EF;
+    }
+    &:visited{
+      color: #888;
+    }
   }
   .title{
     margin-left: 4ex;
@@ -84,6 +98,9 @@ body {
     height: 100%;
     text-align: center;
     vertical-align: middle;
+    &:hover{
+      background-color: #F6F6EF;
+    }
     span{
       display: inline-block;
       width: 60px;
@@ -91,10 +108,7 @@ body {
       margin: 11px 0;
     }
   }
-  .score:hover{
-    background-color: #F6F6EF;
+  &:last-child{
+    border-bottom: 1px solid #e0e0e0;
   }
-}
-.card:last-child{
-  border-bottom: 1px solid #e0e0e0;
 }
