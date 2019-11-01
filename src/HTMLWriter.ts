@@ -3,10 +3,14 @@ import { StoryData, DOMCreator } from "./HKNews";
 
 export default class HTMLWriter implements Writer {
     private doneInit: boolean = false
-    public write(sd: StoryData): void {
+    public async write(sd: StoryData): Promise<any> {
         this.init()
         let scroll: Element | null = document.getElementById('scroll')
-        if (scroll !== null) this.writeCard(scroll, sd)
+        if (scroll !== null) await this.writeCard(scroll, sd)
+    }
+
+    private addClass(elem: Element, className: string): void {
+
     }
 
     private init(): void {
@@ -19,7 +23,7 @@ export default class HTMLWriter implements Writer {
         if (elemH1 !== null) elemH1.textContent = "HKNews App Iwase"
     }
 
-    private writeCard(parent: Element, sd: StoryData): void {
+    private async writeCard(parent: Element, sd: StoryData): Promise<any> {
         /*
         ** *************************
         ** Structure of HTML
@@ -34,24 +38,23 @@ export default class HTMLWriter implements Writer {
         ****************************j
         */
 
-        // todo: Ranking をWriteする
-        // StoryCollector のみRanking(index)を知っている
-        // HTMLWriteクラスはIteratorクラスに持たせて next()メソッドで実行させる
-        // todo: Card追加はアニメーションがあるとわかりやすい
-        let card: DOMCreator = new DOMCreator('div', parent, ['card'], null, null)
+        // todo: url がない場合がある
+        let card: DOMCreator = new DOMCreator('div', parent, ['card', 'out-view'], null, null)
         if (typeof sd.url === 'string' && typeof sd.title === 'string' && typeof sd.score === 'number') {
             let anchorArea: DOMCreator = new DOMCreator('a', card.elem, ['anchorArea'], sd.url, null)
             let rank: DOMCreator = new DOMCreator('div', anchorArea.elem, ['rank'], null, String(sd.rank))
             let title: DOMCreator = new DOMCreator('div', anchorArea.elem, ['title'], null, sd.title)
             let score: DOMCreator = new DOMCreator('a', card.elem, ['score'], null, null)
             let scoreSpan: DOMCreator = new DOMCreator('span', score.elem, ['scoreSpan'], null, String(sd.score))
-
             rank.add()
             title.add()
             anchorArea.add()
             scoreSpan.add()
             score.add()
             card.add()
+            await card.addClass('in-view')
+        }else {
+            console.log("ELSE")
         }
     }
 

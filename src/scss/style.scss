@@ -1,6 +1,7 @@
 // VARIABLE
 $tab: 'screen and (max-width: 788px)';
-$headerFixTop: 44px;// ヘッダをpostion:fixとした際のオフセット
+$header-fix-top: 44px;// ヘッダをpostion:fixとした際のオフセット
+$view-max-width: 700px;
 
 @mixin mediaquery($bp) {
   @media #{$bp} {
@@ -22,10 +23,13 @@ body {
 }
 
 #view{
-  width: 700px;
+  width: $view-max-width;
   margin: 0 auto 0;
-  background-color: #fff;
+  // background-color: #fff;
   box-shadow: 0 0 1px #aaa;
+
+  overflow: hidden;
+
   @include mediaquery($tab) {
     width: 100%;
   }
@@ -34,8 +38,8 @@ body {
 header{
   border-bottom: 1px solid #ddd;
   background-color: rgba(255,255,255,.95);
-  line-height: $headerFixTop;
-  height: $headerFixTop;
+  line-height: $header-fix-top;
+  height: $header-fix-top;
   color: #333;
   left: 0;
   top: 0;
@@ -60,15 +64,29 @@ header{
 
 #scroll{
   @include mediaquery($tab) {
-    margin-top: $headerFixTop;
+    margin-top: $header-fix-top;
   }
+}
+
+.card.out-view{
+  transform: translate(300px, 0);
+  // opacity: 0.4;
+}
+
+.card.in-view{
+  transform: translate(0, 0);
+  // opacity: 1;
 }
 
 .card{
   // height: 50px;
+  background: #FFF;
   position: relative; // for score, which is absolute
   border-bottom: 1px solid #e0e0e0;
   // border-bottom: 0;
+  -webkit-transition: .3s;
+  -o-transition: .3s;
+  transition: .5s ease-out;
   a{
     line-height: 1.2em;
     color: #000;

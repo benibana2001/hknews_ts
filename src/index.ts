@@ -31,7 +31,8 @@ let sort = async (): Promise<any> => {
     let sortedStryAry: StoryData[] = iterator.sortAryBbl(stryAry)
     console.log(sortedStryAry)
     for (let i = 0; i < sortedStryAry.length; i++) {
-        hw.write(sortedStryAry[i])
+        console.log(i)
+        await hw.write(sortedStryAry[i])
     }
     // 一度配列を空にする
     stryAry = []

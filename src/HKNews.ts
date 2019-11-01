@@ -52,6 +52,7 @@ let isOnPageBttm = (): boolean => {
     return false
 }
 
+// todo: クラスを別ファイルとして切り出し
 // todo: 不要なプロパティを削除
 // HTMLWriterでしか使用しないので has-a関係としてHTMLWriterに持たせる
 // todo: create()メソッドを使用して インスタンスは一つ立てればよい構造にする
@@ -72,7 +73,7 @@ class DOMCreator {
         if (className !== null) {
             // this.className = className
             let newClassName: string = ""
-            for(let i = 0; i < className.length; i++) {
+            for (let i = 0; i < className.length; i++) {
                 newClassName += (className[i] + " ")
             }
             this.elem.className = newClassName.substr(0, newClassName.length - 1)
@@ -89,5 +90,15 @@ class DOMCreator {
 
     public add(): void {
         this.parent.appendChild(this.elem)
+    }
+
+    // フェード用クラス
+    public async addClass(className: string): Promise<any> {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                this.elem.classList.add(className)
+                resolve()
+            }, 50);
+        })
     }
 }
