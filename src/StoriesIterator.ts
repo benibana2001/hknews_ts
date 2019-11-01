@@ -34,7 +34,7 @@ export default class StoriesIterator {
         si.fetchCutOut()
 
         // 書き出し
-        this.htmlWriter.write(sd)
+        // this.htmlWriter.write(sd)
         return sd
         // console.log(sd)
     }

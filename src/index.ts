@@ -7,7 +7,7 @@ import HTMLWriter from './HTMLWriter'
 
 let tsCllctr = new TopStoryCollecter(30)
 let iterator: StoriesIterator = tsCllctr.iterator()
-// let hw = new HTMLWriter()
+let hw = new HTMLWriter()
 let stryAry: StoryData[] = []
 
 
@@ -34,6 +34,9 @@ let sort = async (): Promise<any> => {
     let sortedStryAry: StoryData[] = iterator.sortAryBbl(stryAry)
     console.log(sortedStryAry)
     // todo: Write
+    for (let i = 0; i < sortedStryAry.length; i++) {
+        hw.write(sortedStryAry[i])
+    }
 }
 
 view()
