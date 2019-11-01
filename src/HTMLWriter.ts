@@ -38,13 +38,13 @@ export default class HTMLWriter implements Writer {
         // StoryCollector のみRanking(index)を知っている
         // HTMLWriteクラスはIteratorクラスに持たせて next()メソッドで実行させる
         // todo: Card追加はアニメーションがあるとわかりやすい
-        let card: DOMCreator = new DOMCreator('div', parent, 'card', null, null)
+        let card: DOMCreator = new DOMCreator('div', parent, ['card'], null, null)
         if (typeof sd.url === 'string' && typeof sd.title === 'string' && typeof sd.score === 'number') {
-            let anchorArea: DOMCreator = new DOMCreator('a', card.elem, 'anchorArea', sd.url, null)
-            let rank: DOMCreator = new DOMCreator('div', anchorArea.elem, 'rank', null, String(sd.rank))
-            let title: DOMCreator = new DOMCreator('div', anchorArea.elem, 'title', null, sd.title)
-            let score: DOMCreator = new DOMCreator('a', card.elem, 'score', null, null)
-            let scoreSpan: DOMCreator = new DOMCreator('span', score.elem, 'scoreSpan', null, String(sd.score))
+            let anchorArea: DOMCreator = new DOMCreator('a', card.elem, ['anchorArea'], sd.url, null)
+            let rank: DOMCreator = new DOMCreator('div', anchorArea.elem, ['rank'], null, String(sd.rank))
+            let title: DOMCreator = new DOMCreator('div', anchorArea.elem, ['title'], null, sd.title)
+            let score: DOMCreator = new DOMCreator('a', card.elem, ['score'], null, null)
+            let scoreSpan: DOMCreator = new DOMCreator('span', score.elem, ['scoreSpan'], null, String(sd.score))
 
             rank.add()
             title.add()
@@ -55,9 +55,13 @@ export default class HTMLWriter implements Writer {
         }
     }
 
-    private createDIV(parent: Element, className: string | null, text: string | null): void {
+    private createDIV(parent: Element, classNameAry: string[] | null, text: string | null): void {
         let div: Element = document.createElement('div')
-        if (className !== null) div.className = className
+        if (classNameAry !== null) {
+            for(let i = 0; i < classNameAry.length; i++) {
+                div.className = classNameAry[i]
+            }
+        }
         if (text !== null) div.textContent = text
         parent.appendChild(div)
     }

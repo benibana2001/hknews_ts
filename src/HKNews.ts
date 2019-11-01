@@ -62,7 +62,7 @@ class DOMCreator {
     private url!: string
     private text!: string
 
-    constructor(tag: string | null, parent: Element, className: string | null, url: string | null, text: string | null) {
+    constructor(tag: string | null, parent: Element, className: string[] | null, url: string | null, text: string | null) {
         if (tag !== null) {
             this.elem = document.createElement(tag)
         }
@@ -70,8 +70,12 @@ class DOMCreator {
             this.parent = parent
         }
         if (className !== null) {
-            this.className = className
-            this.elem.className = className
+            // this.className = className
+            let newClassName: string = ""
+            for(let i = 0; i < className.length; i++) {
+                newClassName += (className[i] + " ")
+            }
+            this.elem.className = newClassName.substr(0, newClassName.length - 1)
         }
         if (url !== null) {
             this.url = url
