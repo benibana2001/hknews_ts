@@ -1,5 +1,7 @@
 // VARIABLE
 $tab: 'screen and (max-width: 788px)';
+$headerFixTop: 44px;// ヘッダをpostion:fixとした際のオフセット
+
 @mixin mediaquery($bp) {
   @media #{$bp} {
     @content;
@@ -27,28 +29,38 @@ body {
   @include mediaquery($tab) {
     width: 100%;
   }
-  header{
-    border-bottom: 1px solid #ddd;
-    background-color: rgba(255,255,255,.95);
-    line-height: 44px;
-    height: 44px;
-    color: #333;
-    left: 0;
-    top: 0;
-    right: 0;
-    z-index: 3;
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    text-align: center;
-    h1 {
-      cursor: default;
-      display: inline-block;
-      padding: 0;
-      font-weight: 400;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
-    }
+}
+
+header{
+  border-bottom: 1px solid #ddd;
+  background-color: rgba(255,255,255,.95);
+  line-height: $headerFixTop;
+  height: $headerFixTop;
+  color: #333;
+  left: 0;
+  top: 0;
+  right: 0;
+  z-index: 3;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  text-align: center;
+  @include mediaquery($tab) {
+    position: fixed;
+  }
+  h1 {
+    cursor: default;
+    display: inline-block;
+    padding: 0;
+    font-weight: 400;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}
+
+#scroll{
+  @include mediaquery($tab) {
+    margin-top: $headerFixTop;
   }
 }
 

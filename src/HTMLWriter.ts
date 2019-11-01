@@ -5,8 +5,8 @@ export default class HTMLWriter implements Writer {
     private doneInit: boolean = false
     public write(sd: StoryData): void {
         this.init()
-        let view: Element | null = document.getElementById('view')
-        if (view !== null) this.writeCard(view, sd)
+        let scroll: Element | null = document.getElementById('scroll')
+        if (scroll !== null) this.writeCard(scroll, sd)
     }
 
     private init(): void {
