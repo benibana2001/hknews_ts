@@ -33,16 +33,14 @@ export default class Story extends Download {
     public async fetch(): Promise<any> {
         // 割り込みデータ
         let cutInProp: number | null = this.cutInProp
-        console.log(cutInProp)
         let response: StoryData = await this.get()
         // todo: get() の前後で順番が狂う
         // console.log(response)
         this.storyData = response
         if (cutInProp !== null) {
-            console.log(cutInProp)
             this.storyData.rank = cutInProp
         }
-        console.log(this.storyData)
+        // console.log(this.storyData)
         return this.storyData
     }
 

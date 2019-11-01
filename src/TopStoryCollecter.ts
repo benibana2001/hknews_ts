@@ -30,8 +30,14 @@ export default class TopStoryCollecter {
         }
 
         // maxCntStryBundleの数だけインスタンスを作成して保持
+
+        // todo: 二回目以降 ループに入らない
         let storyBundle: number[] = this.topStoryIDs.slice(this.index, this.index + this.sizeStoryBundle)
-        for (let i = 0; i < storyBundle.length; i++) {
+        console.log(`this.index:`, this.index)
+        console.log(`this.sizeStoryBundle`, this.sizeStoryBundle)
+        console.log(`storyBundle`, storyBundle.length)
+        for (let i = this.index; i < storyBundle.length; i++) {
+        // for (let i = this.index; i < this.index + this.sizeStoryBundle; i++) {
             // set instance
             this.appendStory(new Story(storyBundle[i]))
         }

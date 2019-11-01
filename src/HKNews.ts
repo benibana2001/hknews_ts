@@ -44,7 +44,8 @@ let isOnPageBttm = (): boolean => {
     let crrntWndwH: number = window.innerHeight
     let crrntElemH: number = elem.scrollHeight
 
-    if (crrntWndwY + crrntWndwH === crrntElemH) {
+    // marginTopの値を調整
+    if (crrntWndwY + crrntWndwH >= crrntElemH + 14) {
         return true
         // alert("bottom")
     }

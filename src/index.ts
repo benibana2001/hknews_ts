@@ -14,7 +14,6 @@ let stryAry: StoryData[] = []
 let viewNext = async () => {
     let sd: StoryData = await iterator.next()
     stryAry.push(sd)
-    // hw.write(sd)
 }
 
 let viewAry: Promise<any>[] = []
@@ -33,7 +32,6 @@ let sort = async (): Promise<any> => {
     // console.log("sort実行")
     let sortedStryAry: StoryData[] = iterator.sortAryBbl(stryAry)
     console.log(sortedStryAry)
-    // todo: Write
     for (let i = 0; i < sortedStryAry.length; i++) {
         hw.write(sortedStryAry[i])
     }
