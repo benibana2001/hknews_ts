@@ -23,13 +23,6 @@ let view = async (): Promise<any> => {
 
 view()
 
-let moreBtn: Element | null = document.getElementById('moreButton')
-if (moreBtn !== null) {
-    moreBtn.addEventListener('click', () => {
-        view()
-    })
-}
-
 let ticking: boolean = false
 window.addEventListener('scroll', () => {
     let lastScrllY: number = window.scrollY
@@ -42,3 +35,11 @@ window.addEventListener('scroll', () => {
         ticking = true
     }
 })
+/*
+let moreBtn: Element | null = document.getElementById('moreButton')
+if (moreBtn !== null) {
+    moreBtn.addEventListener('click', () => {
+        view()
+    })
+}
+*/
