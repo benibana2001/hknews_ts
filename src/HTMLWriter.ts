@@ -2,9 +2,21 @@ import Writer from "./InterfaceWriter";
 import { StoryData, DOMCreator } from "./HKNews";
 
 export default class HTMLWriter implements Writer {
+    private doneInit: boolean = false
     public write(sd: StoryData): void {
+        this.init()
         let view: Element | null = document.getElementById('view')
         if (view !== null) this.writeCard(view, sd)
+    }
+
+    private init(): void {
+        if (this.doneInit) return
+        this.writeHeader()
+    }
+
+    private writeHeader(): void {
+        let elemH1: Element | null = document.getElementById('h1-title')
+        if (elemH1 !== null) elemH1.textContent = "HKNews App Iwase"
     }
 
     private writeCard(parent: Element, sd: StoryData): void {
