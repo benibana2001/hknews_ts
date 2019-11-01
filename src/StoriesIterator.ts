@@ -38,4 +38,26 @@ export default class StoriesIterator {
         return sd
         // console.log(sd)
     }
+
+    public sortAryBbl(sdAry: StoryData[]): StoryData[] {
+        for (let i = 0; i < sdAry.length; i++) {
+            for (let j = sdAry.length - 1; i < j; j--) {
+                if (this.rnkFrmSd(sdAry[j]) < this.rnkFrmSd(sdAry[j - 1])) {
+                    let tmp: StoryData = sdAry[j]
+                    sdAry[j] = sdAry[j - 1]
+                    sdAry[j - 1] = tmp
+                }
+            }
+        }
+        return sdAry
+    }
+
+    private rnkFrmSd(sd: StoryData): number {
+        if (typeof sd.rank === 'number') {
+            return sd.rank
+        } else {
+            return 0
+        }
+    }
+
 }

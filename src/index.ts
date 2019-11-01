@@ -7,21 +7,49 @@ import HTMLWriter from './HTMLWriter'
 
 let tsCllctr = new TopStoryCollecter(30)
 let iterator: StoriesIterator = tsCllctr.iterator()
-let hw = new HTMLWriter()
+// let hw = new HTMLWriter()
+let stryAry: StoryData[] = []
+
 
 let viewNext = async () => {
     let sd: StoryData = await iterator.next()
+    stryAry.push(sd)
     // hw.write(sd)
 }
+
+let viewAry: Promise<any>[] = []
+
 let view = async (): Promise<any> => {
     await tsCllctr.setStryInstnc()
     // console.log(tsCllctr.storyCollecter)
     while (iterator.hasNext()) {
-        viewNext()
+        viewAry.push(viewNext())
     }
+    sort()
+}
+
+let sort = async (): Promise<any> => {
+    await Promise.all(viewAry)
+    // console.log("sort実行")
+    let sortedStryAry: StoryData[] = iterator.sortAryBbl(stryAry)
+    console.log(sortedStryAry)
+    // todo: Write
 }
 
 view()
+
+/*
+let parallel = async (): Promise<any> => {
+    await Promise.all([
+        view()
+    ])
+}
+
+(async (): Promise<any> => {
+    await parallel()
+    console.log("All DONE")
+})()
+*/
 
 let ticking: boolean = false
 window.addEventListener('scroll', () => {
