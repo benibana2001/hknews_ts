@@ -1,6 +1,6 @@
 import Writer from "./InterfaceWriter";
 import { StoryData } from "./HKNews";
-import DOMCreator from "./DOMCreator";
+import DOMElementsEditor from "./DOMElementsEditor";
 
 export default class HTMLWriter implements Writer {
     private doneInit: boolean = false
@@ -40,13 +40,13 @@ export default class HTMLWriter implements Writer {
         */
 
         // TODO: url がない場合がある
-        let card: DOMCreator = new DOMCreator('div', parent, ['card', 'out-view'], null, null)
+        let card: DOMElementsEditor = new DOMElementsEditor('div', parent, ['card', 'out-view'], null, null)
         if (typeof sd.url === 'string' && typeof sd.title === 'string' && typeof sd.score === 'number') {
-            let anchorArea: DOMCreator = new DOMCreator('a', card.elem, ['anchorArea'], sd.url, null)
-            let rank: DOMCreator = new DOMCreator('div', anchorArea.elem, ['rank'], null, String(sd.rank))
-            let title: DOMCreator = new DOMCreator('div', anchorArea.elem, ['title'], null, sd.title)
-            let score: DOMCreator = new DOMCreator('a', card.elem, ['score'], null, null)
-            let scoreSpan: DOMCreator = new DOMCreator('span', score.elem, ['scoreSpan'], null, String(sd.score))
+            let anchorArea: DOMElementsEditor = new DOMElementsEditor('a', card.elem, ['anchorArea'], sd.url, null)
+            let rank: DOMElementsEditor = new DOMElementsEditor('div', anchorArea.elem, ['rank'], null, String(sd.rank))
+            let title: DOMElementsEditor = new DOMElementsEditor('div', anchorArea.elem, ['title'], null, sd.title)
+            let score: DOMElementsEditor = new DOMElementsEditor('a', card.elem, ['score'], null, null)
+            let scoreSpan: DOMElementsEditor = new DOMElementsEditor('span', score.elem, ['scoreSpan'], null, String(sd.score))
             rank.add()
             title.add()
             anchorArea.add()
@@ -57,16 +57,5 @@ export default class HTMLWriter implements Writer {
         }else {
             console.log("ELSE")
         }
-    }
-
-    private createDIV(parent: Element, classNameAry: string[] | null, text: string | null): void {
-        let div: Element = document.createElement('div')
-        if (classNameAry !== null) {
-            for(let i = 0; i < classNameAry.length; i++) {
-                div.className = classNameAry[i]
-            }
-        }
-        if (text !== null) div.textContent = text
-        parent.appendChild(div)
     }
 }

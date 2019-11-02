@@ -1,6 +1,6 @@
 // HTMLWriterでしか使用しないので has-a関係としてHTMLWriterに持たせる
 // TODO: create()メソッドを使用して インスタンスは一つ立てればよい構造にする
-export default class DOMCreator {
+export default class DOMElementsEditor {
     public elem!: Element
     private parent!: Element
 
