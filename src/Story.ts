@@ -6,6 +6,7 @@ export default class Story extends Download {
     private _id!: number
     private stryURL!: string
     public storyData!: StoryData
+    public rowData!: any
     // fetch実行時 データ割り込み
     private cutInProp: number | null = null
 
@@ -27,6 +28,8 @@ export default class Story extends Download {
     public async get(): Promise<any> {
         let response: any = await fetch(this.stryURL)
         let json: any = await response.json()
+        this.rowData = json
+        console.log(this.rowData)
         return json
     }
 
@@ -34,7 +37,6 @@ export default class Story extends Download {
         // 割り込みデータ
         let cutInProp: number | null = this.cutInProp
         let response: StoryData = await this.get()
-        // TODO: get() の前後で順番が狂う
         // console.log(response)
         this.storyData = response
         if (cutInProp !== null) {

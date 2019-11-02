@@ -38,7 +38,9 @@ export default class HTMLWriter implements Writer {
         ****************************j
         */
 
-        // TODO: url がない場合がある
+        // TODO: コメント直リンクの場合はurl がない
+        // IDを直で入力
+        // https://news.ycombinator.com/item?id=21419536
         let card: DOMElement = this.domElementsEditor.createElem('div', parent, ['card', 'out-view'], null, null)
         if (typeof sd.url === 'string' && typeof sd.title === 'string' && typeof sd.score === 'number') {
             let anchorArea: DOMElement = this.domElementsEditor.createElem('a', card.elem, ['anchorArea'], sd.url, null)
