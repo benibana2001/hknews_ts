@@ -1,5 +1,6 @@
 import Writer from "./InterfaceWriter";
-import { StoryData, DOMCreator } from "./HKNews";
+import { StoryData } from "./HKNews";
+import DOMCreator from "./DOMCreator";
 
 export default class HTMLWriter implements Writer {
     private doneInit: boolean = false
@@ -38,7 +39,7 @@ export default class HTMLWriter implements Writer {
         ****************************j
         */
 
-        // todo: url がない場合がある
+        // TODO: url がない場合がある
         let card: DOMCreator = new DOMCreator('div', parent, ['card', 'out-view'], null, null)
         if (typeof sd.url === 'string' && typeof sd.title === 'string' && typeof sd.score === 'number') {
             let anchorArea: DOMCreator = new DOMCreator('a', card.elem, ['anchorArea'], sd.url, null)

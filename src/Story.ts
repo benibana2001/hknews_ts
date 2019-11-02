@@ -34,7 +34,7 @@ export default class Story extends Download {
         // 割り込みデータ
         let cutInProp: number | null = this.cutInProp
         let response: StoryData = await this.get()
-        // todo: get() の前後で順番が狂う
+        // TODO: get() の前後で順番が狂う
         // console.log(response)
         this.storyData = response
         if (cutInProp !== null) {

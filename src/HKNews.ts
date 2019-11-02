@@ -1,4 +1,4 @@
-export { StoryData, URL, DOMCreator, isOnPageBttm }
+export { StoryData, URL, isOnPageBttm }
 
 interface StoryData {
     by?: string,
@@ -50,55 +50,4 @@ let isOnPageBttm = (): boolean => {
         // alert("bottom")
     }
     return false
-}
-
-// todo: クラスを別ファイルとして切り出し
-// todo: 不要なプロパティを削除
-// HTMLWriterでしか使用しないので has-a関係としてHTMLWriterに持たせる
-// todo: create()メソッドを使用して インスタンスは一つ立てればよい構造にする
-class DOMCreator {
-    public elem!: Element
-    private parent!: Element
-    private className!: string
-    private url!: string
-    private text!: string
-
-    constructor(tag: string | null, parent: Element, className: string[] | null, url: string | null, text: string | null) {
-        if (tag !== null) {
-            this.elem = document.createElement(tag)
-        }
-        if (parent !== null) {
-            this.parent = parent
-        }
-        if (className !== null) {
-            // this.className = className
-            let newClassName: string = ""
-            for (let i = 0; i < className.length; i++) {
-                newClassName += (className[i] + " ")
-            }
-            this.elem.className = newClassName.substr(0, newClassName.length - 1)
-        }
-        if (url !== null) {
-            this.url = url
-            this.elem.setAttribute("href", url)
-        }
-        if (text !== null) {
-            this.text = text
-            this.elem.textContent = text
-        }
-    }
-
-    public add(): void {
-        this.parent.appendChild(this.elem)
-    }
-
-    // フェード用クラス
-    public async addClass(className: string): Promise<any> {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                this.elem.classList.add(className)
-                resolve()
-            }, 50);
-        })
-    }
 }
