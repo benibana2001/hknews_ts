@@ -57,5 +57,7 @@ let isOnPageBttm = (): boolean => {
     if (crrntWndwY + crrntWndwH >= crrntElemH) {
         return true
     }
+
+
     return false
 }

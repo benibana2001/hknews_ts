@@ -62,6 +62,9 @@ window.addEventListener('scroll', () => {
     }
 })
 
+// TODO: 最下部への到達が早いとスクロールイベントをキャッチできない
+// よってOnPageBttm の状態が数秒間続いた時は view() を実行
+
 let lockLoadTrigger = (): void => {
     ticking = true
 }
