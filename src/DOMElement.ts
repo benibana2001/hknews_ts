@@ -5,9 +5,9 @@ export default class DOMElement {
     constructor(
         tag: string,
         parent: Element,
-        classNameArr: string[],
-        url: string,
-        text: string
+        classNameArr: string[] | null,
+        url: string | null,
+        text: string | null
     ) {
         this.elem = document.createElement(tag)
         this.setParent(parent)
@@ -20,23 +20,38 @@ export default class DOMElement {
         this.parent = parent
     }
 
-    private setURL(url: string): void {
+    private setURL(url: string | null): void {
+        if(url === null) return
         this.elem.setAttribute("href", url)
     }
 
-    private setText(text: string): void {
+    private setText(text: string | null): void {
+        if(text === null) return
         this.elem.textContent = text
     }
 
-    // インスタンスにクラスを付与する
-    private setClassName(clsAry: string[]): void {
+    private setClassName(clsAry: string[] | null): void {
+        if (clsAry === null) return
         if (clsAry.length < 1) return
 
         let newClassName: string = ""
         for (let i = 0; i < clsAry.length; i++) {
             newClassName += (clsAry[i] + " ")
         }
-
         this.elem.className = newClassName.substr(0, newClassName.length - 1)
+    }
+
+    public add(): void {
+        this.parent.appendChild(this.elem)
+    }
+
+    // フェード用クラス
+    public async addClass(className: string): Promise<any> {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                this.elem.classList.add(className)
+                resolve()
+            }, 50);
+        })
     }
 }
