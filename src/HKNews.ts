@@ -16,12 +16,14 @@ interface StoryData {
 type URLType = {
     HKN_TOP_URL: string,
     HKN_STORY_URL: string,
+    HKN_COMMENT_ORIGIN: string,
     EXTENSION: string
 }
 
 const URL: URLType = {
     HKN_TOP_URL: 'https://hacker-news.firebaseio.com/v0/topstories.json',
     HKN_STORY_URL: 'https://hacker-news.firebaseio.com/v0/item/',
+    HKN_COMMENT_ORIGIN: 'https://news.ycombinator.com/item?id=',
     EXTENSION: '.json'
 }
 

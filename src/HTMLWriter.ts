@@ -2,6 +2,7 @@ import Writer from "./InterfaceWriter";
 import { StoryData } from "./HKNews";
 import DOMElementsEditor from "./DOMElementsEditor";
 import DOMElement from "./DOMElement";
+import { URL } from "./HKNews"
 
 export default class HTMLWriter implements Writer {
     private doneInit: boolean = false
@@ -41,19 +42,45 @@ export default class HTMLWriter implements Writer {
         // TODO: コメント直リンクの場合はurl がない
         // IDを直で入力
         // https://news.ycombinator.com/item?id=21419536
+        let isCard: boolean = false
+        let isStoryCard: boolean = false
+        let isCommentCard: boolean = false
+        let applyCardType = (sd: StoryData) => {
+            let isValidURL = (sd: StoryData): boolean => {
+                return typeof sd.url === 'string'
+            }
+            let isValidTitle = (sd: StoryData): boolean => {
+                return typeof sd.title === 'string'
+            }
+            let isValidScore = (sd: StoryData): boolean => {
+                return typeof sd.score === 'number'
+            }
 
-        let isValidURL = (sd: StoryData): boolean => {
-            return typeof sd.url === 'string'
+            isCard = isValidTitle(sd) && isValidScore(sd) ? true : false
+            isStoryCard = isCard && isValidURL(sd) ? true : false
+            isCommentCard = isCard && (!isStoryCard) ? true : false
         }
-        let isValidTitle = (sd: StoryData): boolean => {
-            return typeof sd.title === 'string'
+
+        let setCommentURL = (sd: StoryData): void => {
+            sd.url = URL.HKN_COMMENT_ORIGIN + String(sd.id)
         }
-        let isValidScore = (sd: StoryData): boolean => {
-            return typeof sd.score === 'number'
+
+        let initCard = (sd: StoryData): void => {
+            applyCardType(sd)
+            if (isCommentCard) {
+                setCommentURL(sd)
+                // console.log("COMMENT CARD: ", sd.rank)
+            } else if (isStoryCard) {
+                // console.log("STORY CARD: ", sd.rank)
+            } else {
+                console.log("UNDEFINED CARD-TYPE: ", sd.rank)
+                console.trace(sd)
+            }
         }
- 
+
+        initCard(sd)
         let card: DOMElement = this.domElementsEditor.createElem('div', parent, ['card', 'out-view'], null, null)
-        if (isValidURL(sd) && isValidTitle(sd) && isValidScore(sd)) {
+        if (isCard) {
             let anchorArea: DOMElement = this.domElementsEditor.createElem('a', card.elem, ['anchorArea'], sd.url, null)
             let rank: DOMElement = this.domElementsEditor.createElem('div', anchorArea.elem, ['rank'], null, String(sd.rank))
             let title: DOMElement = this.domElementsEditor.createElem('div', anchorArea.elem, ['title'], null, sd.title)
@@ -66,8 +93,9 @@ export default class HTMLWriter implements Writer {
             score.add()
             card.add()
             await card.addClass('in-view')
-        }else {
+
+        } else {
             console.log("Error")
         }
-   }
+    }
 }
