@@ -1,5 +1,4 @@
 import Story from './Story'
-import { StoryData } from './HKNews'
 import TopStories from './TopStoryIDs'
 import StoriesIterator from './StoriesIterator'
 export default class TopStoryCollecter {

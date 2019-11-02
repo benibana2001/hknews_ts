@@ -1,6 +1,5 @@
 import Download from "./Download"
 import { StoryData, URL } from "./HKNews"
-import HTMLWriter from "./HTMLWriter"
 
 export default class Story extends Download {
     private _id!: number

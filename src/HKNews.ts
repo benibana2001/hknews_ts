@@ -1,4 +1,4 @@
-export { StoryData, URL, isOnPageBttm }
+export { StoryData, URL }
 
 /* ************************
 ** 個別StoryのJSONパース型
@@ -33,31 +33,4 @@ const URL: URLType = {
     HKN_STORY_URL: 'https://hacker-news.firebaseio.com/v0/item/',
     HKN_COMMENT_ORIGIN: 'https://news.ycombinator.com/item?id=',
     EXTENSION: '.json'
-}
-
-/* ************************
-** define some util function
-** ********************** */
-function deferFunc(f: Function, t: number): Promise<any> {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            f()
-            resolve(`${f} was occured`)
-        }, t)
-    })
-}
-
-let isOnPageBttm = (): boolean => {
-    let elem: Element = document.body
-    let crrntWndwY: number = window.scrollY
-    let crrntWndwH: number = window.innerHeight
-    let crrntElemH: number = elem.scrollHeight
-
-    // marginTopの値を調整
-    if (crrntWndwY + crrntWndwH >= crrntElemH) {
-        return true
-    }
-
-
-    return false
 }

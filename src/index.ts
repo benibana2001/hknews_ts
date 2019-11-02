@@ -2,7 +2,8 @@ import './scss/style.scss'
 
 import TopStoryCollecter from './TopStoryCollecter'
 import StoriesIterator from './StoriesIterator'
-import { StoryData, isOnPageBttm } from './HKNews'
+import { StoryData } from './HKNews'
+import { isOnPageBttm } from './Utility'
 import HTMLWriter from './HTMLWriter'
 
 let tsCllctr = new TopStoryCollecter(30)

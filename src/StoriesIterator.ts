@@ -1,4 +1,3 @@
-import Story from "./Story"
 import TopStoryCollecter from "./TopStoryCollecter"
 import { StoryData } from "./HKNews"
 import HTMLWriter from "./HTMLWriter"
