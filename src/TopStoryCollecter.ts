@@ -41,6 +41,7 @@ export default class TopStoryCollecter {
 
     private async getTpStryIDs(): Promise<any> {
         // TODO: Static関数で良さげ
+
         let ts: TopStories = new TopStories()
         let response: any = await ts.get()
         this.allIDs = response

@@ -18,10 +18,13 @@ let viewNext = async () => {
 let viewAry: Promise<any>[] = []
 
 let view = async (): Promise<any> => {
+    // TODO: スクロールローディングのLOCK開始
+
     await tsCllctr.setStryInstnc()
     while (iterator.hasNext()) {
         viewAry.push(viewNext())
     }
+    lockLoadTrigger()
     sort()
 }
 
@@ -31,15 +34,19 @@ let sort = async (): Promise<any> => {
     let sortedStryAry: StoryData[] = iterator.sortAryBbl(stryAry)
     console.log(sortedStryAry)
     for (let i = 0; i < sortedStryAry.length; i++) {
-        console.log(i)
+        console.log(`${i} を書き込み中( been writing ${i})`)
         await hw.write(sortedStryAry[i])
     }
+    console.log("書き込み完了 ( finished writing )")
     // 一度配列を空にする
     stryAry = []
+    // TODO:ロックを解除する
+    UnLockLoadTrigger()
 }
 
 view()
 
+// TODO: 通信、Card書き込み処理中はロック
 let ticking: boolean = false
 window.addEventListener('scroll', () => {
     let lastScrllY: number = window.scrollY
@@ -50,5 +57,14 @@ window.addEventListener('scroll', () => {
             ticking = false
         })
         ticking = true
+    } else {
+        console.log("ページ下部に到達。書き込み完了を待機. ( YOU CAME BOTOOM OF THE PAGE, BUT PLEASE WAIT SO THAT WRITING WILL FINISH SAFELY )")
     }
 })
+
+let lockLoadTrigger = (): void => {
+    ticking = true
+}
+let UnLockLoadTrigger = (): void => {
+    ticking = false
+}

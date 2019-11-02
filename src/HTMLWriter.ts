@@ -39,9 +39,6 @@ export default class HTMLWriter implements Writer {
         ****************************j
         */
 
-        // TODO: コメント直リンクの場合はurl がない
-        // IDを直で入力
-        // https://news.ycombinator.com/item?id=21419536
         let isCard: boolean = false
         let isStoryCard: boolean = false
         let isCommentCard: boolean = false
