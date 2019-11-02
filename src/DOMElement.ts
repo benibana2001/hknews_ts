@@ -6,8 +6,8 @@ export default class DOMElement {
         tag: string,
         parent: Element,
         classNameArr: string[] | null,
-        url: string | null,
-        text: string | null
+        url: string | null | undefined,
+        text: string | null | undefined
     ) {
         this.elem = document.createElement(tag)
         this.setParent(parent)
@@ -20,13 +20,13 @@ export default class DOMElement {
         this.parent = parent
     }
 
-    private setURL(url: string | null): void {
-        if(url === null) return
+    private setURL(url: string | null | undefined): void {
+        if(typeof url !== 'string') return
         this.elem.setAttribute("href", url)
     }
 
-    private setText(text: string | null): void {
-        if(text === null) return
+    private setText(text: string | null | undefined): void {
+        if(typeof text !== 'string') return
         this.elem.textContent = text
     }
 

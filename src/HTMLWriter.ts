@@ -41,8 +41,19 @@ export default class HTMLWriter implements Writer {
         // TODO: コメント直リンクの場合はurl がない
         // IDを直で入力
         // https://news.ycombinator.com/item?id=21419536
+
+        let isValidURL = (sd: StoryData): boolean => {
+            return typeof sd.url === 'string'
+        }
+        let isValidTitle = (sd: StoryData): boolean => {
+            return typeof sd.title === 'string'
+        }
+        let isValidScore = (sd: StoryData): boolean => {
+            return typeof sd.score === 'number'
+        }
+ 
         let card: DOMElement = this.domElementsEditor.createElem('div', parent, ['card', 'out-view'], null, null)
-        if (typeof sd.url === 'string' && typeof sd.title === 'string' && typeof sd.score === 'number') {
+        if (isValidURL(sd) && isValidTitle(sd) && isValidScore(sd)) {
             let anchorArea: DOMElement = this.domElementsEditor.createElem('a', card.elem, ['anchorArea'], sd.url, null)
             let rank: DOMElement = this.domElementsEditor.createElem('div', anchorArea.elem, ['rank'], null, String(sd.rank))
             let title: DOMElement = this.domElementsEditor.createElem('div', anchorArea.elem, ['title'], null, sd.title)
@@ -58,5 +69,5 @@ export default class HTMLWriter implements Writer {
         }else {
             console.log("Error")
         }
-    }
+   }
 }

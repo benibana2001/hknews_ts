@@ -7,8 +7,8 @@ export default class DOMElementsEditor {
         tag: string,
         parent: Element,
         classNameArr: string[] | null,
-        url: string | null,
-        text: string | null
+        url: string | null | undefined,
+        text: string | null | undefined
     ): DOMElement {
         return new DOMElement(tag, parent, classNameArr, url, text)
     }
