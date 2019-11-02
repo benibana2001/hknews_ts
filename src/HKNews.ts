@@ -1,5 +1,8 @@
 export { StoryData, URL, isOnPageBttm }
 
+/* ************************
+** 個別StoryのJSONパース型
+** ********************** */
 interface StoryData {
     by?: string,
     descendant?: number[],
@@ -13,6 +16,11 @@ interface StoryData {
     rank?: number
 }
 
+/* ************************
+** ランキングに載ってくるもの: 
+** ** 1. HKN_STORY_URL: 外部リンク
+** ** 2. HKN_COMMENT_ORIGIN: 内部リンク（コメントへのURL）
+** ********************** */
 type URLType = {
     HKN_TOP_URL: string,
     HKN_STORY_URL: string,
@@ -27,10 +35,9 @@ const URL: URLType = {
     EXTENSION: '.json'
 }
 
-/*
+/* ************************
 ** define some util function
-** this could be omitted
-*/
+** ********************** */
 function deferFunc(f: Function, t: number): Promise<any> {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
@@ -49,7 +56,6 @@ let isOnPageBttm = (): boolean => {
     // marginTopの値を調整
     if (crrntWndwY + crrntWndwH >= crrntElemH) {
         return true
-        // alert("bottom")
     }
     return false
 }
