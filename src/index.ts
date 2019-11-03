@@ -1,13 +1,13 @@
 import './scss/style.scss'
 
-import TopStoryCollecter from './TopStoryCollecter'
+import StoryCollecter from './StoryCollecter'
 import StoriesIterator from './StoriesIterator'
 import { StoryData } from './HKNews'
 import { isOnPageBttm } from './Utility'
 import HTMLWriter from './HTMLWriter'
 
-let tsCllctr = new TopStoryCollecter(30)
-let iterator: StoriesIterator = tsCllctr.iterator()
+let stryCollector = new StoryCollecter(30)
+let iterator: StoriesIterator = stryCollector.iterator()
 let hw = new HTMLWriter()
 let stryAry: StoryData[] = []// StoryDataを複数格納する
 
@@ -20,8 +20,7 @@ let queueNxtStry = async () => {
 
 let quereAry: Promise<any>[] = []// queueのPromiseを格納
 let view = async (): Promise<any> => {
-    // TODO: setStryInstnc()ではなくinit(), download()など 名前を知らなくて良い,もしくは実行内容の把握しやすい抽象的な名前になるようリファクタリングする
-    await tsCllctr.init()
+    await stryCollector.init()
     while (iterator.hasNext()) {
         quereAry.push(queueNxtStry())
     }

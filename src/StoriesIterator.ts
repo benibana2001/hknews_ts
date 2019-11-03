@@ -1,13 +1,13 @@
-import TopStoryCollecter from "./TopStoryCollecter"
+import StoryCollecter from "./StoryCollecter"
 import { StoryData } from "./HKNews"
 import HTMLWriter from "./HTMLWriter"
 
 export default class StoriesIterator {
     public index: number = 0
-    public stryCllctr!: TopStoryCollecter
+    public stryCllctr!: StoryCollecter
     private htmlWriter: HTMLWriter = new HTMLWriter()
 
-    constructor(stryCllctr: TopStoryCollecter) {
+    constructor(stryCllctr: StoryCollecter) {
         this.stryCllctr = stryCllctr
     }
 

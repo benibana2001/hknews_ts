@@ -1,7 +1,7 @@
 import Story from './Story'
 import TopStories from './TopStoryIDs'
 import StoriesIterator from './StoriesIterator'
-export default class TopStoryCollecter {
+export default class StoryCollecter {
     public storyCollection: Story[] = []
     private allIDs: number[] = []
     private packetSize: number// a bunch of StoryData, which will be load by single request.
