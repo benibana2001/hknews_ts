@@ -1,8 +1,8 @@
-import Writer from "./InterfaceWriter";
-import { StoryData } from "./HKNews";
+import Writer from "./WriterInterface";
+import { StoryData } from "../HKNews";
 import DOMElementsEditor from "./DOMElementsEditor";
 import DOMElement from "./DOMElement";
-import { URL } from "./HKNews"
+import { URL } from "../HKNews"
 
 export default class HTMLWriter implements Writer {
     private doneInit: boolean = false

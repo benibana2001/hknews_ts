@@ -1,6 +1,6 @@
 import StoryCollecter from "./StoryCollecter"
-import { StoryData } from "./HKNews"
-import HTMLWriter from "./HTMLWriter"
+import { StoryData } from "../HKNews"
+import HTMLWriter from "../Writer/HTMLWriter"
 
 export default class StoriesIterator {
     public index: number = 0

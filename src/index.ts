@@ -1,10 +1,10 @@
 import './scss/style.scss'
 
-import StoryCollecter from './StoryCollecter'
-import StoriesIterator from './StoriesIterator'
-import { StoryData } from './HKNews'
-import { isOnPageBttm } from './Utility'
-import HTMLWriter from './HTMLWriter'
+import StoryCollecter from './ts/Story/StoryCollecter'
+import StoriesIterator from './ts/Story/StoriesIterator'
+import { StoryData } from './ts/HKNews'
+import { isOnPageBttm } from './ts/Utility'
+import HTMLWriter from './ts/Writer/HTMLWriter'
 
 let stryCollector = new StoryCollecter(30)
 let iterator: StoriesIterator = stryCollector.iterator()

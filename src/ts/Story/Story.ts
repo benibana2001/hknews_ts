@@ -1,7 +1,7 @@
-import Download from "./Download"
-import { StoryData, URL } from "./HKNews"
+import { StoryData, URL } from "../HKNews"
+import Downloader from "./DownloaderInterface"
 
-export default class Story extends Download {
+export default class Story implements Downloader {
     private _id!: number
     private stryURL!: string
     public storyData!: StoryData
@@ -10,7 +10,6 @@ export default class Story extends Download {
     private cutInProp: number | null = null
 
     constructor(id: number) {
-        super()
         this.id = id
     }
 
@@ -24,7 +23,7 @@ export default class Story extends Download {
         return this._id
     }
 
-    public async get(): Promise<any> {
+    public async download(): Promise<any> {
         let response: any = await fetch(this.stryURL)
         let json: any = await response.json()
         this.rowData = json
@@ -35,7 +34,7 @@ export default class Story extends Download {
     public async fetch(): Promise<any> {
         // 割り込みデータ
         let cutInProp: number | null = this.cutInProp
-        let response: StoryData = await this.get()
+        let response: StoryData = await this.download()
         // console.log(response)
         this.storyData = response
         if (cutInProp !== null) {

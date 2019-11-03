@@ -40,7 +40,7 @@ export default class StoryCollecter {
 
     private async getTpStryIDs(): Promise<any> {
         let ts: TopStories = new TopStories()
-        let response: any = await ts.get()
+        let response: any = await ts.download()
         this.allIDs = response
     }
 
