@@ -4,19 +4,20 @@ import { isOnPageBttm } from './ts/Utility'
 
 const renderer: Render = new Render()
 
-// window.addEventListener('scroll', () => {
-//     if (!renderer.isLocked) {
-//         window.requestAnimationFrame(() => {
-//             if (isOnPageBttm) renderer.initLoading()
-//             console.log("UN-LOCK")
-//             renderer.UnLockLoadTrigger()
-//         })
-//         console.log("LOCK")
-//         renderer.lockLoadTrigger()
-//     } else {
-//         // console.log("ページ下部に到達。書き込み完了を待機. ( YOU CAME BOTOOM OF THE PAGE, BUT PLEASE WAIT SO THAT WRITING WILL FINISH SAFELY )")
-//     }
-// })
+
+window.addEventListener('scroll', () => {
+    console.log("scroll感知")
+    if (renderer.isLocked === false) {
+        window.requestAnimationFrame((): void => {
+            if (isOnPageBttm()) {
+                // スクロールローディングのロックをしてload開始
+                console.log("最下部到達 ロックします。")
+                renderer.lockLoadTrigger()
+                renderer.load()
+            }
+        })
+    }
+})
 
 renderer.load()
 

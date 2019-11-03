@@ -10,38 +10,16 @@ export default class Render {
     public hw = new HTMLWriter()
     public stryPacket: StoryData[] = []// StoryDataを指定個数だけ格納する, 上書きされる
     public quereAry: Promise<any>[] = []// queueのPromiseを格納
-    public ticking: boolean = false
+    public isLocked: boolean = false
 
-    constructor() {
-        window.addEventListener('scroll', () => {
-            let lastScrllY: number = window.scrollY
-            if (!this.ticking) {
-                window.requestAnimationFrame(() => {
-                    // console.log(isOnPageBttm())
-                    if (isOnPageBttm()) this.load()
-                    this.ticking = false
-                })
-                this.ticking = true
-            } else {
-                console.log("ページ下部に到達。書き込み完了を待機. ( YOU CAME BOTOOM OF THE PAGE, BUT PLEASE WAIT SO THAT WRITING WILL FINISH SAFELY )")
-            }
-        })
-    }
-
-
-
-
+    constructor() { }
 
     public lockLoadTrigger = (): void => {
-        this.ticking = true
+        this.isLocked = true
     }
 
     public UnLockLoadTrigger = (): void => {
-        this.ticking = false
-    }
-
-    public isLocked = (): boolean => {
-        return this.ticking
+        this.isLocked = false
     }
 
     // fetchをキュー
@@ -57,8 +35,6 @@ export default class Render {
             this.quereAry.push(this.queueNxtStry())
         }
 
-        // スクロールローディングのLOCK開始
-        this.lockLoadTrigger()
         this.render()
     }
 
@@ -66,7 +42,7 @@ export default class Render {
     public doneFetchPacket = async (): Promise<any> => {
         await Promise.all(this.quereAry)
     }
-    
+
     // 通信、Card書き込み処理中はロック
     public render = async (): Promise<any> => {
         await this.doneFetchPacket()
@@ -76,7 +52,7 @@ export default class Render {
         console.log(sortedStryAry)
         // 全件書き出し
         for (let i = 0; i < sortedStryAry.length; i++) {
-            console.log(`${i} を書き込み中( been writing ${i})`)
+            // console.log(`${i} を書き込み中( been writing ${i})`)
             await this.hw.write(sortedStryAry[i])
         }
         console.log("書き込み完了 ( finished writing )")

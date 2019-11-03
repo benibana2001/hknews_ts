@@ -27,7 +27,7 @@ export default class Story implements Downloader {
         let response: any = await fetch(this.stryURL)
         let json: any = await response.json()
         this.rowData = json
-        console.log(this.rowData)
+        // console.log(this.rowData)
         return json
     }
 
