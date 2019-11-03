@@ -19,12 +19,12 @@ let viewNext = async () => {
 let viewAry: Promise<any>[] = []
 
 let view = async (): Promise<any> => {
-    // TODO: スクロールローディングのLOCK開始
-
     await tsCllctr.setStryInstnc()
     while (iterator.hasNext()) {
         viewAry.push(viewNext())
     }
+
+    // スクロールローディングのLOCK開始
     lockLoadTrigger()
     sort()
 }
@@ -41,13 +41,13 @@ let sort = async (): Promise<any> => {
     console.log("書き込み完了 ( finished writing )")
     // 一度配列を空にする
     stryAry = []
-    // TODO:ロックを解除する
+    // ロックを解除する
     UnLockLoadTrigger()
 }
 
 view()
 
-// TODO: 通信、Card書き込み処理中はロック
+// 通信、Card書き込み処理中はロック
 let ticking: boolean = false
 window.addEventListener('scroll', () => {
     let lastScrllY: number = window.scrollY

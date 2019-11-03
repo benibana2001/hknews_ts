@@ -76,6 +76,9 @@ export default class HTMLWriter implements Writer {
         }
 
         initCard(sd)
+        // TODO: add area-label(property) for Anchor Tag to 'socre' and 'card' Elements.
+        // https://web.dev/link-name/?utm_source=lighthouse&utm_medium=extension 
+        // https://stackoverflow.com/questions/51683761/how-to-fix-lighthouse-links-do-not-have-a-discernible-name
         let card: DOMElement = this.domElementsEditor.createElem('div', parent, ['card', 'out-view'], null, null)
         if (isCard) {
             let anchorArea: DOMElement = this.domElementsEditor.createElem('a', card.elem, ['anchorArea'], sd.url, null)
