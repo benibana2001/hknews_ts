@@ -18,7 +18,7 @@ export default class Render {
             if (!this.ticking) {
                 window.requestAnimationFrame(() => {
                     // console.log(isOnPageBttm())
-                    if (isOnPageBttm()) this.initLoading()
+                    if (isOnPageBttm()) this.load()
                     this.ticking = false
                 })
                 this.ticking = true
@@ -27,6 +27,10 @@ export default class Render {
             }
         })
     }
+
+
+
+
 
     public lockLoadTrigger = (): void => {
         this.ticking = true
@@ -47,8 +51,8 @@ export default class Render {
         this.stryPacket.push(sd)
     }
     // StoryData取得・描画の基準点
-    public initLoading = async (): Promise<any> => {
-        await this.stryCollector.init()
+    public load = async (): Promise<any> => {
+        await this.stryCollector.init()// 初回だけ実行される
         while (this.iterator.hasNext()) {
             this.quereAry.push(this.queueNxtStry())
         }
@@ -57,6 +61,7 @@ export default class Render {
         this.lockLoadTrigger()
         this.render()
     }
+
     // SotryDataの全パケット受信完了を待機
     public doneFetchPacket = async (): Promise<any> => {
         await Promise.all(this.quereAry)

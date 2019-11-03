@@ -18,7 +18,7 @@ const renderer: Render = new Render()
 //     }
 // })
 
-renderer.initLoading()
+renderer.load()
 
 // TODO: 最下部への到達が早いとスクロールイベントをキャッチできない
 // よってOnPageBttm の状態が数秒間続いた時は view() を実行
