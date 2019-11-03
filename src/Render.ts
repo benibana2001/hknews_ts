@@ -15,6 +15,14 @@ export default class Render {
 
     constructor() { }
 
+    public lockLoading = (): void => {
+        this.isLockedLoading = true
+    }
+
+    public unLockLoading = (): void => {
+        this.isLockedLoading = false
+    }
+
     public lockRendering = (): void => {
         this.isLockedRendering = true
     }
@@ -61,6 +69,7 @@ export default class Render {
         this.stryPacket = []
         // ロックを解除する
         this.unLockRendering()
+        console.log("書き込み完了 レンダー ロック解除します。")
     }
 
 }
