@@ -7,12 +7,14 @@ const renderer: Render = new Render()
 
 window.addEventListener('scroll', () => {
     console.log("scroll感知")
-    if (renderer.isLocked === false) {
+
+
+    if (renderer.isLockedRendering === false) {
         window.requestAnimationFrame((): void => {
             if (isOnPageBttm()) {
                 // スクロールローディングのロックをしてload開始
                 console.log("最下部到達 ロックします。")
-                renderer.lockLoadTrigger()
+                renderer.lockRendering()
                 renderer.load()
             }
         })

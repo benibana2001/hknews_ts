@@ -10,16 +10,17 @@ export default class Render {
     public hw = new HTMLWriter()
     public stryPacket: StoryData[] = []// StoryDataを指定個数だけ格納する, 上書きされる
     public quereAry: Promise<any>[] = []// queueのPromiseを格納
-    public isLocked: boolean = false
+    public isLockedLoading: boolean = false
+    public isLockedRendering: boolean = false
 
     constructor() { }
 
-    public lockLoadTrigger = (): void => {
-        this.isLocked = true
+    public lockRendering = (): void => {
+        this.isLockedRendering = true
     }
 
-    public UnLockLoadTrigger = (): void => {
-        this.isLocked = false
+    public unLockRendering = (): void => {
+        this.isLockedRendering = false
     }
 
     // fetchをキュー
@@ -59,7 +60,7 @@ export default class Render {
         // パケットを空にする
         this.stryPacket = []
         // ロックを解除する
-        this.UnLockLoadTrigger()
+        this.unLockRendering()
     }
 
 }
