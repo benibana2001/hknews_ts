@@ -9,19 +9,21 @@ import HTMLWriter from './HTMLWriter'
 let tsCllctr = new TopStoryCollecter(30)
 let iterator: StoriesIterator = tsCllctr.iterator()
 let hw = new HTMLWriter()
-let stryAry: StoryData[] = []
+let stryAry: StoryData[] = []// StoryDataを複数格納する
 
-let viewNext = async () => {
+// fetchをキュー
+let queueNxtStry = async () => {
+    // Rawデータを格納
     let sd: StoryData = await iterator.next()
     stryAry.push(sd)
 }
 
-let viewAry: Promise<any>[] = []
-
+let quereAry: Promise<any>[] = []// queueのPromiseを格納
 let view = async (): Promise<any> => {
+    // TODO: setStryInstnc()ではなくinit(), download()など 名前を知らなくて良い,もしくは実行内容の把握しやすい抽象的な名前になるようリファクタリングする
     await tsCllctr.setStryInstnc()
     while (iterator.hasNext()) {
-        viewAry.push(viewNext())
+        quereAry.push(queueNxtStry())
     }
 
     // スクロールローディングのLOCK開始
@@ -30,7 +32,7 @@ let view = async (): Promise<any> => {
 }
 
 let sort = async (): Promise<any> => {
-    await Promise.all(viewAry)
+    await Promise.all(quereAry)
     // console.log("sort実行")
     let sortedStryAry: StoryData[] = iterator.sortAryBbl(stryAry)
     console.log(sortedStryAry)
