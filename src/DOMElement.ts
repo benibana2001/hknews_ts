@@ -7,13 +7,15 @@ export default class DOMElement {
         parent: Element,
         classNameArr: string[] | null,
         url: string | null | undefined,
-        text: string | null | undefined
+        text: string | null | undefined,
+        ariaLabel: string | null
     ) {
         this.elem = document.createElement(tag)
         this.setParent(parent)
         this.setClassName(classNameArr)
         this.setURL(url)
         this.setText(text)
+        this.setAriaLabel(ariaLabel)
     }
 
     private setParent(parent: Element): void {
@@ -21,13 +23,18 @@ export default class DOMElement {
     }
 
     private setURL(url: string | null | undefined): void {
-        if(typeof url !== 'string') return
+        if (typeof url !== 'string') return
         this.elem.setAttribute("href", url)
     }
 
     private setText(text: string | null | undefined): void {
-        if(typeof text !== 'string') return
+        if (typeof text !== 'string') return
         this.elem.textContent = text
+    }
+
+    private setAriaLabel(ariaLabel: string | null): void {
+        if (typeof ariaLabel !== 'string') return
+        this.elem.setAttribute("aria-label", ariaLabel)
     }
 
     private setClassName(clsAry: string[] | null): void {

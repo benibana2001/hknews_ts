@@ -8,8 +8,27 @@ export default class DOMElementsEditor {
         parent: Element,
         classNameArr: string[] | null,
         url: string | null | undefined,
-        text: string | null | undefined
+        text: string | null | undefined,
+        ariaLabel: string | null
     ): DOMElement {
-        return new DOMElement(tag, parent, classNameArr, url, text)
+        return new DOMElement(tag, parent, classNameArr, url, text, ariaLabel)
+    }
+
+    public createDiv(
+        parent: Element,
+        classNameArr: string[] | null,
+        text: string | null | undefined,
+    ) {
+        return this.createElem('div', parent, classNameArr, null, text, null)
+    }
+
+    public createAnchor(
+        parent: Element,
+        classNameArr: string[] | null,
+        url: string | null | undefined,
+        text: string | null | undefined,
+        ariaLabel: string | null
+    ): DOMElement {
+        return this.createElem('a', parent, classNameArr, url, text, ariaLabel)
     }
 }

@@ -76,16 +76,14 @@ export default class HTMLWriter implements Writer {
         }
 
         initCard(sd)
-        // TODO: add area-label(property) for Anchor Tag to 'socre' and 'card' Elements.
-        // https://web.dev/link-name/?utm_source=lighthouse&utm_medium=extension 
-        // https://stackoverflow.com/questions/51683761/how-to-fix-lighthouse-links-do-not-have-a-discernible-name
-        let card: DOMElement = this.domElementsEditor.createElem('div', parent, ['card', 'out-view'], null, null)
+        let card: DOMElement = this.domElementsEditor.createDiv(parent, ['card', 'out-view'], null)
         if (isCard) {
-            let anchorArea: DOMElement = this.domElementsEditor.createElem('a', card.elem, ['anchorArea'], sd.url, null)
-            let rank: DOMElement = this.domElementsEditor.createElem('div', anchorArea.elem, ['rank'], null, String(sd.rank))
-            let title: DOMElement = this.domElementsEditor.createElem('div', anchorArea.elem, ['title'], null, sd.title)
-            let score: DOMElement = this.domElementsEditor.createElem('a', card.elem, ['score'], null, null)
-            let scoreSpan: DOMElement = this.domElementsEditor.createElem('span', score.elem, ['scoreSpan'], null, String(sd.score))
+            let anchorArea: DOMElement = this.domElementsEditor.createAnchor(card.elem, ['anchorArea'], sd.url, null, 'Link to external site')
+            let rank: DOMElement = this.domElementsEditor.createDiv(anchorArea.elem, ['rank'], String(sd.rank))
+            let title: DOMElement = this.domElementsEditor.createDiv(anchorArea.elem, ['title'], sd.title)
+            let score: DOMElement = this.domElementsEditor.createAnchor(card.elem, ['score'], null, null, 'Link to Hacker News comment page')
+            let scoreSpan: DOMElement = this.domElementsEditor.createElem('span', score.elem, ['scoreSpan'], null, String(sd.score), null)
+            
             rank.add()
             title.add()
             anchorArea.add()
