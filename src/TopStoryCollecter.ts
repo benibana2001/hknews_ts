@@ -2,36 +2,36 @@ import Story from './Story'
 import TopStories from './TopStoryIDs'
 import StoriesIterator from './StoriesIterator'
 export default class TopStoryCollecter {
-    public storyCollecter: Story[] = []
+    public storyCollection: Story[] = []
     private allIDs: number[] = []
-    // instance length
-    private bundleIDLength: number
-    // a index of Story already instanciated
-    private index: number
+    private packetSize: number// a bunch of StoryData, which will be load by single request.
+    private index: number// a counter, which indicate a number of Stories instanciated
 
     constructor(num: number) {
         this.index = 0
-        this.bundleIDLength = num
+        this.packetSize = num
     }
 
     // 初期化処理
     public async init(): Promise<any> {
-        // TopStoryのIDを500件取得して保持
-        await this.getTpStryIDs()
-    }
-
-    // Storyインスタンスを追加
-    public async setStryInstnc(): Promise<any> {
-        // 初期化判定
+        // 初回判定
         if (this.index === 0) {
             await this.getTpStryIDs()
         }
+        this.setStoryInstance()
+    }
 
-        let eachBundleIDs: number[] = this.allIDs.slice(this.index, this.index + this.bundleIDLength)
-        // インスタンスを作成して保持
-        for (let i = 0; i < eachBundleIDs.length; i++) {
-            this.appendStory(new Story(eachBundleIDs[i]))// set instance
+    // インスタンスを作成して保持
+    public setStoryInstance = (): void => {
+        let DLoadList = this.makeDLoadIDList()
+        for (let i = 0; i < DLoadList.length; i++) {
+            this.appendStory(new Story(DLoadList[i]))
         }
+    }
+
+    // ダウンロード対象となるIDリストを作成
+    private makeDLoadIDList = (): number[] => {
+        return this.allIDs.slice(this.index, this.index + this.packetSize)
     }
 
     public iterator(): StoriesIterator {
@@ -45,15 +45,15 @@ export default class TopStoryCollecter {
     }
 
     public getCllctrLength() {
-        return this.storyCollecter.length
+        return this.storyCollection.length
     }
 
     public getStoryAt(index: number) {
-        return this.storyCollecter[index]
+        return this.storyCollection[index]
     }
 
     public appendStory(story: Story): void {
-        this.storyCollecter.push(story)
+        this.storyCollection.push(story)
         this.index++
     }
 }

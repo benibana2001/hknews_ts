@@ -21,7 +21,7 @@ let queueNxtStry = async () => {
 let quereAry: Promise<any>[] = []// queueのPromiseを格納
 let view = async (): Promise<any> => {
     // TODO: setStryInstnc()ではなくinit(), download()など 名前を知らなくて良い,もしくは実行内容の把握しやすい抽象的な名前になるようリファクタリングする
-    await tsCllctr.setStryInstnc()
+    await tsCllctr.init()
     while (iterator.hasNext()) {
         quereAry.push(queueNxtStry())
     }
