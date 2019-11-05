@@ -8,8 +8,6 @@ export default class Render {
     public stryCollector: StoryCollecter = new StoryCollecter(30)
     public iterator: StoriesIterator = this.stryCollector.iterator()
     public hw = new HTMLWriter()
-    // TODO: StoryPacketはStoryCollectionで管理する
-    public stryPacket: StoryData[] = []// StoryDataを指定個数だけ格納する, 上書きされる
     public quereAry: Promise<any>[] = []// queueのPromiseを格納
     public isLockedLoading: boolean = false
     public isLockedRendering: boolean = false
@@ -24,12 +22,12 @@ export default class Render {
     // fetchをキュー
     public queueNxtStry = async (): Promise<any> => {
         // Rawデータを格納
-        let sd: StoryData = await this.iterator.next()
-        this.stryPacket.push(sd)
+        await this.iterator.next()
     }
 
     // StoryData取得・描画の基準点
-    public load = async (): Promise<any> => {
+    // TODO: Packetのロード機能はStoryCollecterに任せる方が賢明か
+    public loadSinglePacket = async (): Promise<any> => {
         await this.stryCollector.init()// 初回だけ実行される
         while (this.iterator.hasNext()) {
             this.quereAry.push(this.queueNxtStry())
@@ -38,9 +36,9 @@ export default class Render {
     }
 
     public render = async(): Promise<any> => {
-        await this.load()
+        await this.loadSinglePacket()
         // 並び替え実行
-        let sortedStryAry: StoryData[] = this.iterator.sortAryBbl(this.stryPacket)
+        let sortedStryAry: StoryData[] = this.stryCollector.getSinglePacket()
         console.log(sortedStryAry)
         // 全件書き出し
         for (let i = 0; i < sortedStryAry.length; i++) {
@@ -49,7 +47,7 @@ export default class Render {
         }
         console.log("書き込み完了 ( finished writing )")
         // パケットを空にする
-        this.stryPacket = []
+        this.stryCollector.clearSinglePacket()
         // ロックを解除する
         this.unLockRendering()
         console.log("書き込み完了 レンダー ロック解除します。")

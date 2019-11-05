@@ -1,10 +1,12 @@
 import Story from './Story'
 import TopStories from './TopStoryIDs'
 import StoriesIterator from './StoriesIterator'
+import { StoryData } from '../HKNews'
 export default class StoryCollecter {
     public storyCollection: Story[] = []
     private allIDs: number[] = []
     private packetSize: number// a bunch of StoryData, which will be load by single request.
+    private stryPacket: StoryData[] = []
     private index: number// a counter, which indicate a number of Stories instanciated
 
     constructor(num: number) {
@@ -44,6 +46,18 @@ export default class StoryCollecter {
         this.allIDs = response
     }
 
+    public getSinglePacket = (): StoryData[] => {
+        return this.sortAryBbl(this.stryPacket)
+    }
+
+    public clearSinglePacket = (): void => {
+        this.stryPacket = []
+    }
+
+    public setEachStry = (sd: StoryData): void => {
+        this.stryPacket.push(sd)
+    }
+
     public getCllctrLength() {
         return this.storyCollection.length
     }
@@ -55,5 +69,26 @@ export default class StoryCollecter {
     public appendStory(story: Story): void {
         this.storyCollection.push(story)
         this.index++
+    }
+
+    private sortAryBbl(sdAry: StoryData[]): StoryData[] {
+        for (let i = 0; i < sdAry.length; i++) {
+            for (let j = sdAry.length - 1; i < j; j--) {
+                if (this.rnkFrmSd(sdAry[j]) < this.rnkFrmSd(sdAry[j - 1])) {
+                    let tmp: StoryData = sdAry[j]
+                    sdAry[j] = sdAry[j - 1]
+                    sdAry[j - 1] = tmp
+                }
+            }
+        }
+        return sdAry
+    }
+
+    private rnkFrmSd(sd: StoryData): number {
+        if (typeof sd.rank === 'number') {
+            return sd.rank
+        } else {
+            return 0
+        }
     }
 }
