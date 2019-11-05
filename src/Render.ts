@@ -15,20 +15,9 @@ export default class Render {
 
     constructor() { }
 
-    public lockLoading = (): void => {
-        this.isLockedLoading = true
-    }
-
-    public unLockLoading = (): void => {
-        this.isLockedLoading = false
-    }
-
-    public lockRendering = (): void => {
-        this.isLockedRendering = true
-    }
-
-    public unLockRendering = (): void => {
-        this.isLockedRendering = false
+    // SotryDataの全パケット受信完了を待機
+    public doneFetchPacket = async (): Promise<any> => {
+        await Promise.all(this.quereAry)
     }
 
     // fetchをキュー
@@ -37,25 +26,18 @@ export default class Render {
         let sd: StoryData = await this.iterator.next()
         this.stryPacket.push(sd)
     }
+
     // StoryData取得・描画の基準点
     public load = async (): Promise<any> => {
         await this.stryCollector.init()// 初回だけ実行される
         while (this.iterator.hasNext()) {
             this.quereAry.push(this.queueNxtStry())
         }
-
-        this.render()
-    }
-
-    // SotryDataの全パケット受信完了を待機
-    public doneFetchPacket = async (): Promise<any> => {
-        await Promise.all(this.quereAry)
-    }
-
-    // 通信、Card書き込み処理中はロック
-    public render = async (): Promise<any> => {
         await this.doneFetchPacket()
+    }
 
+    public render = async(): Promise<any> => {
+        await this.load()
         // 並び替え実行
         let sortedStryAry: StoryData[] = this.iterator.sortAryBbl(this.stryPacket)
         console.log(sortedStryAry)
@@ -72,4 +54,19 @@ export default class Render {
         console.log("書き込み完了 レンダー ロック解除します。")
     }
 
+    public lockLoading = (): void => {
+        this.isLockedLoading = true
+    }
+
+    public unLockLoading = (): void => {
+        this.isLockedLoading = false
+    }
+
+    public lockRendering = (): void => {
+        this.isLockedRendering = true
+    }
+
+    public unLockRendering = (): void => {
+        this.isLockedRendering = false
+    }
 }

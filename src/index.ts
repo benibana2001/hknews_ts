@@ -31,13 +31,13 @@ window.addEventListener('scroll', () => {
                 // スクロールローディングのロックをしてload開始
                 console.log("最下部到達 レンダー実行 ロックします。")
                 renderer.lockRendering()
-                renderer.load()
+                renderer.render()
             }
         })
     }
 })
 
-renderer.load()
+renderer.render()
 
 // TODO: 最下部への到達が早いとスクロールイベントをキャッチできない
 // よってOnPageBttm の状態が数秒間続いた時は view() を実行
