@@ -3,6 +3,7 @@ import HTMLWriter from './ts/Writer/HTMLWriter'
 import PacketManager from './ts/Story/PacketManager'
 
 export default class Render {
+    // TODO: packetManamgerはここには必要ない。index.tsに持っていく。このクラスではRenderのみ
     public packetManager = new PacketManager()
     public hw = new HTMLWriter()
     public quereAry: Promise<any>[] = []// queueのPromiseを格納
@@ -11,8 +12,16 @@ export default class Render {
 
     constructor() { }
 
-    public render = async(): Promise<any> => {
-        await this.packetManager.loadSinglePacket()
+    public render = async (): Promise<any> => {
+        if (!this.packetManager.isReadablePacket()) {
+            console.log("データがありません")
+            // すでにPacket取得中である場合は待機
+            if (this.packetManager.isLoading) {
+                console.log("ローディング中")
+            } else {
+                await this.packetManager.loadSinglePacket()
+            }
+        }
         // 並び替え実行
         let sortedStryAry: StoryData[] = this.packetManager.getSinglePacket()
         console.log(sortedStryAry)

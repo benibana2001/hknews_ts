@@ -4,23 +4,22 @@ import { isOnPageBttm, isOverPage60per } from './ts/Utility'
 
 const renderer: Render = new Render()
 
-
 window.addEventListener('scroll', () => {
-    console.log("scroll感知")
-
     // ロック解除時
     if (renderer.isLockedLoading === false) {
         window.requestAnimationFrame((): void => {
-            if (isOverPage60per) {
+            if (isOverPage60per()) {
                 console.log("60%到達 ロード実行 ロックします。")
                 renderer.lockLoading()
             }
         })
     } else {// ロック時
         window.requestAnimationFrame(() => {
-            if (!isOverPage60per) {
+            if (!isOverPage60per()) {
                 console.log("60%未満 ロード ロック解除します。")
                 renderer.unLockLoading()
+            } else {
+                console.log("60%を超えています")
             }
         })
     }

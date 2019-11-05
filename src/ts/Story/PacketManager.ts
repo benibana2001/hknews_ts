@@ -3,17 +3,32 @@ import StoriesIterator from "./StoriesIterator"
 import { StoryData } from "../HKNews"
 
 export default class PacketManager {
-    private stryCollector: StoryCollecter = new StoryCollecter(30)
+    private packetSize = 30
+    private stryCollector: StoryCollecter = new StoryCollecter(this.packetSize)
     private iterator: StoriesIterator = this.stryCollector.iterator()
     private stryPacket: StoryData[] = []
     private queueAry: Promise<any>[] = []// queueのPromiseを格納
+    private _isLoading: boolean = false
     public loadSinglePacket = async (): Promise<any> => {
+        this._isLoading = true
         await this.stryCollector.init()// 初回のみ実行される
         while (this.iterator.hasNext()) {
             this.queueAry.push(this.queueNxtStry())
         }
         await this.doneFetchPacket()
+        this._isLoading = false// 受信完了
     }
+
+    // Packetの有無を確認
+    public isReadablePacket = (): boolean => {
+        return this.stryPacket.length === this.packetSize ? true : false
+    }
+
+    // 状態を確認 Read Only
+    get isLoading(): boolean {
+        return this._isLoading
+    }
+
     // fetchをキュー
     private queueNxtStry = async (): Promise<any> => {
         // Rawデータを格納
