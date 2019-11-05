@@ -8,6 +8,7 @@ export default class Render {
     public stryCollector: StoryCollecter = new StoryCollecter(30)
     public iterator: StoriesIterator = this.stryCollector.iterator()
     public hw = new HTMLWriter()
+    // TODO: StoryPacketはStoryCollectionで管理する
     public stryPacket: StoryData[] = []// StoryDataを指定個数だけ格納する, 上書きされる
     public quereAry: Promise<any>[] = []// queueのPromiseを格納
     public isLockedLoading: boolean = false
