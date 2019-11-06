@@ -7,7 +7,6 @@ import { StoryData } from './ts/HKNews'
 const renderer: Render = new Render()
 const packetManager: PacketManager = new PacketManager()
 
-// TODO: 90%未満の時(いや、スクロール時は常に) パケットが受信されているかチェック実行
 window.addEventListener('scroll', () => {
     window.requestAnimationFrame(async (): Promise<any> => {
         if (reachedPageBttmFrom(0.93)) {
@@ -23,31 +22,24 @@ window.addEventListener('scroll', () => {
 })
 
 let isLoaded: boolean = false
-let isLoading: boolean = false
 
-// ロードを実行
+// TODO: エラー投げて処理した方が読みやすい?
+// ロードは何回もキューが入るので データロード中に入ったキューはキャンセルする
 let load = async (): Promise<boolean> => {
     // ロード済みか確認
-    if (isLoaded === true) {
-        console.log("1: 成功 データあり") 
+    if (packetManager.isReadablePacket()) {
+        console.log("1: 成功 すでにデータあり")
         return true// 成功
     } else {
-        if (packetManager.getSinglePacket().length >= 30) {
-            console.log("2: 成功 データあり")
-            return true// 成功
+        // ロード中か確認
+        if (packetManager.isLoading === true) {
+            console.log("3: 中断 データロード中")
+            return false// 失敗 loadはキャンセルされる
         } else {
-            // ロード中か確認
-            if (isLoading === true) {
-                console.log("3: 中断 データロード中")
-                return false// 失敗 loadはキャンセルされる
-            } else {
-                isLoading = true
-                await packetManager.loadSinglePacket()
-                console.log("4: 成功 データ取得完了")
-                isLoaded = true
-                isLoading = false
-                return true// 成功
-            }
+            await packetManager.loadSinglePacket()
+            console.log("4: 成功 データ取得完了")
+            isLoaded = true
+            return true// 成功
         }
     }
 }
@@ -66,5 +58,10 @@ let render = async (): Promise<any> => {
 
 render()
 
-// TODO: 最下部への到達が早いとスクロールイベントをキャッチできない
-// よってOnPageBttm の状態が数秒間続いた時は view() を実行
+// let avoidLock = () => {
+//     if(reachedPageBttmFrom(0.99)) {
+//         render()
+//     }
+//     setTimeout(avoidLock, 500)
+// }
+// avoidLock()
