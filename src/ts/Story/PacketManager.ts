@@ -43,14 +43,17 @@ export default class PacketManager {
         return this.sortAryBbl(this.stryPacket)
     }
 
-    public clearSinglePacket = (): void => {
-        this.stryPacket = []
-    }
-
     public setEachStry = (sd: StoryData): void => {
         this.stryPacket.push(sd)
     }
 
+    public afterRendering = (): void => {
+        this.clearSinglePacket()
+    }
+
+    private clearSinglePacket = (): void => {
+        this.stryPacket = []
+    }
     // ************************************
     // *
     // ************************************
