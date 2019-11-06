@@ -7,6 +7,7 @@ export default class PacketManager {
     private stryCollector: StoryCollecter = new StoryCollecter(this.packetSize)
     private iterator: StoriesIterator = this.stryCollector.iterator()
     private stryPacket: StoryData[] = []
+    // private sortedPacket: StoryData[] = []
     private queueAry: Promise<any>[] = []// queueのPromiseを格納
     private _isLoading: boolean = false
     public loadSinglePacket = async (): Promise<any> => {
@@ -16,10 +17,13 @@ export default class PacketManager {
             this.queueAry.push(this.queueNxtStry())
         }
         await this.doneFetchPacket()
+        console.log(this.stryPacket)// >> 2
+        this.stryPacket = this.sortAryBbl(this.stryPacket)
         this._isLoading = false// 受信完了
     }
 
     // Packetの有無を確認
+    // TODO: この値は誤り 受信完了はPromiseで管理する isLoadingと用途が被っている
     public isReadablePacket = (): boolean => {
         return this.stryPacket.length === this.packetSize ? true : false
     }
@@ -35,12 +39,13 @@ export default class PacketManager {
         this.stryPacket.push(await this.iterator.next())
     }
     // SotryDataの全パケット受信完了を待機
-    private doneFetchPacket = async (): Promise<any> => {
+    public doneFetchPacket = async (): Promise<any> => {
         await Promise.all(this.queueAry)
     }
 
     public getSinglePacket = (): StoryData[] => {
-        return this.sortAryBbl(this.stryPacket)
+        // TODO: ない
+        return this.stryPacket
     }
 
     public setEachStry = (sd: StoryData): void => {
@@ -48,6 +53,7 @@ export default class PacketManager {
     }
 
     public afterRendering = (): void => {
+        console.log("からにします")
         this.clearSinglePacket()
     }
 
