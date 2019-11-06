@@ -1,25 +1,27 @@
 import './scss/style.scss'
 import Render from './Render'
 import PacketManager from './ts/Story/PacketManager'
-import { isOnPageBttm, isOverPage60per } from './ts/Utility'
+import { reachedPageBttmFrom } from './ts/Utility'
 import { StoryData } from './ts/HKNews'
 
 const renderer: Render = new Render()
 const packetManager: PacketManager = new PacketManager()
 
-
+// TODO: 90%未満の時(いや、スクロール時は常に) パケットが受信されているか常にチェック実行
 window.addEventListener('scroll', () => {
     // ロック解除時
     if (renderer.isLockedLoading === false) {
-        window.requestAnimationFrame((): void => {
-            if (isOverPage60per()) {
+        window.requestAnimationFrame(async(): Promise<any> => {
+            if (reachedPageBttmFrom(0.6)) {
                 console.log("60%到達 ロード実行 ロックします。")
                 renderer.lockLoading()
+                await checkLoadingStatus()
+                console.log("ロード完了")
             }
         })
     } else {// ロック時
         window.requestAnimationFrame(() => {
-            if (!isOverPage60per()) {
+            if (!reachedPageBttmFrom(0.6)) {
                 console.log("60%未満 ロード ロック解除します。")
                 renderer.unLockLoading()
             } else {
@@ -30,7 +32,7 @@ window.addEventListener('scroll', () => {
 
     if (renderer.isLockedRendering === false) {
         window.requestAnimationFrame((): void => {
-            if (isOnPageBttm()) {
+            if (reachedPageBttmFrom(0.9)) {
                 // スクロールローディングのロックをしてload開始
                 console.log("最下部到達 レンダー実行 ロックします。")
                 renderer.lockRendering()
