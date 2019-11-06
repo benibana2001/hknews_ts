@@ -17,7 +17,6 @@ export default class PacketManager {
             this.queueAry.push(this.queueNxtStry())
         }
         await this.doneFetchPacket()
-        console.log(this.stryPacket)// >> 2
         this.stryPacket = this.sortAryBbl(this.stryPacket)
         this._isLoading = false// 受信完了
     }
@@ -44,7 +43,6 @@ export default class PacketManager {
     }
 
     public getSinglePacket = (): StoryData[] => {
-        // TODO: ない
         return this.stryPacket
     }
 
@@ -53,7 +51,6 @@ export default class PacketManager {
     }
 
     public afterRendering = (): void => {
-        console.log("からにします")
         this.clearSinglePacket()
     }
 

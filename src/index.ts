@@ -12,9 +12,9 @@ window.addEventListener('scroll', () => {
     window.requestAnimationFrame(async (): Promise<any> => {
         if (reachedPageBttmFrom(0.93)) {
             if (renderer.isLockedRendering === false) {
-                await load()
                 await render()
             } else {
+                // console.log("")
             }
         } else {
             await load()
@@ -24,42 +24,40 @@ window.addEventListener('scroll', () => {
 
 let isLoaded: boolean = false
 let isLoading: boolean = false
-let promiseLoading: Promise<any> | null = null
 
 // ロードを実行
-let load = async (): Promise<any> => {
+let load = async (): Promise<boolean> => {
     // ロード済みか確認
-    if (isLoaded === true) return
-        console.log(1)
-    if (packetManager.getSinglePacket().length >= 30) return
-        console.log(2)
-    // ロード中か確認
-    if(isLoading === true) return
-        console.log(3)
-
-    isLoading = true
-    if (promiseLoading !== null) {
-        console.log(4)
-        await promiseLoading
-        console.log(5)
+    if (isLoaded === true) {
+        console.log("1: 成功 データあり") 
+        return true// 成功
     } else {
-        console.log(6)
-        promiseLoading = await packetManager.loadSinglePacket()
+        if (packetManager.getSinglePacket().length >= 30) {
+            console.log("2: 成功 データあり")
+            return true// 成功
+        } else {
+            // ロード中か確認
+            if (isLoading === true) {
+                console.log("3: 中断 データロード中")
+                return false// 失敗 loadはキャンセルされる
+            } else {
+                isLoading = true
+                await packetManager.loadSinglePacket()
+                console.log("4: 成功 データ取得完了")
+                isLoaded = true
+                isLoading = false
+                return true// 成功
+            }
+        }
     }
-        console.log(7)
-        console.log(packetManager.getSinglePacket())
-
-    isLoaded = true
-    promiseLoading = null
-    isLoading = false
 }
 
 let render = async (): Promise<any> => {
-    await load()
-    // load()完了時に担保すべきもの　⇨ packetManager.getSinglePacket()　
-    //**** */
+    let successLoad = await load()
+    if (!successLoad) { return false }
 
-    console.log(packetManager.getSinglePacket())
+    console.log('A: データ確認OK レンダリング開始')
+
     let singlePacket: StoryData[] = packetManager.getSinglePacket()
     await renderer.render(singlePacket)
     packetManager.afterRendering()
