@@ -1,6 +1,6 @@
 // VARIABLE
 $tab: 'screen and (max-width: 788px)';
-$header-fix-top: 44px;// ヘッダをpostion:fixとした際のオフセット
+$header-fix-top: 44px; // ヘッダをpostion:fixとした際のオフセット
 $view-max-width: 700px;
 
 @mixin mediaquery($bp) {
@@ -10,7 +10,8 @@ $view-max-width: 700px;
 }
 
 // RESET
-body, h1 {
+body,
+h1 {
   margin: 0;
   padding: 0;
 }
@@ -18,14 +19,15 @@ body, h1 {
 // MAIN
 body {
   background: #fafafa;
-  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
-  font-size: 16px!important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-size: 16px !important;
+
   @include mediaquery($tab) {
     background: #e7eef7;
   }
 }
 
-#view{
+#view {
   width: $view-max-width;
   margin: 0 auto 0;
   // background-color: #fff;
@@ -38,9 +40,9 @@ body {
   }
 }
 
-header{
+header {
   border-bottom: 1px solid #ddd;
-  background-color: rgba(255,255,255,.95);
+  background-color: rgba(255, 255, 255, .95);
   line-height: $header-fix-top;
   height: $header-fix-top;
   color: #333;
@@ -51,9 +53,11 @@ header{
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   text-align: center;
+
   @include mediaquery($tab) {
     position: fixed;
   }
+
   h1 {
     cursor: default;
     display: inline-block;
@@ -65,23 +69,23 @@ header{
   }
 }
 
-#scroll{
+#scroll {
   @include mediaquery($tab) {
     margin-top: $header-fix-top;
   }
 }
 
-.card.out-view{
+.card.out-view {
   transform: translate(300px, 0);
   // opacity: 0.4;
 }
 
-.card.in-view{
+.card.in-view {
   transform: translate(0, 0);
   // opacity: 1;
 }
 
-.card{
+.card {
   // height: 50px;
   background: #FFF;
   position: relative; // for score, which is absolute
@@ -90,33 +94,48 @@ header{
   -webkit-transition: .3s;
   -o-transition: .3s;
   transition: .5s ease-out;
-  a{
+
+  a {
     line-height: 1.2em;
     color: #000;
     display: block;
     padding: 10px 5px;
     text-decoration: none;
   }
-  .anchorArea{
+
+  .anchorArea {
     padding: 10px 5px;
     padding-right: 60px;
-    &:hover{
+
+    &:hover {
       background: #F6F6EF;
     }
-    &:visited{
+
+    &:visited {
       color: #888;
     }
   }
-  .story{
+
+  .story {
     margin-left: 4ex;
     padding-left: 5px;
+
     .meta-data {
       display: block;
       font-size: 14px;
       color: #666d74;
     }
+
+    .points {
+      color: dodgerblue
+    }
+
+    .comment-num {
+      color: dodgerblue
+    }
   }
-  .rank{
+
+  .rank {
     font-weight: lighter;
     text-align: right;
     width: 3.5ex;
@@ -125,9 +144,10 @@ header{
     left: 5px;
     top: 10px;
   }
+
   // TODO: Make larger ahchor area size.
   // https://web.dev/tap-targets/?utm_source=lighthouse&utm_medium=extension
-  .score{
+  .score {
     color: dodgerblue;
     position: absolute;
     top: 0;
@@ -138,17 +158,76 @@ header{
     height: 100%;
     text-align: center;
     vertical-align: middle;
-    &:hover{
+
+    &:hover {
       background-color: #F6F6EF;
     }
-    span{
-      display: inline-block;
-      width: 60px;
-      height: 17px;
-      margin: 11px 0;
+
+    // span {
+    //   display: inline-block;
+    //   width: 60px;
+    //   height: 17px;
+    //   margin: 11px 0;
+    // }
+    .arrow_box {
+      position: relative;
+      margin-left: 21px;
+      margin-top: 14px;
+      padding: 12px;
+      background: #c9e4fe;
+      border-radius: 4px;
+      width: 6px;
+
+      &::before {
+        content: '';
+        position: absolute;
+        display: block;
+        width: 0;
+        height: 0;
+        left: 0;
+        bottom: -6px;
+        border-top: 15px solid #c9e4fe;
+        border-right: 15px solid transparent;
+        border-left: 15px solid transparent;
+      }
     }
+
+    // hukidashi
+    // .arrow_box {
+    //   position: relative;
+    //   background: #ffffff;
+    //   border: 4px solid #1e90ff;
+
+    //   &:after,
+    //   &:before {
+    //     top: 100%;
+    //     left: 50%;
+    //     border: solid transparent;
+    //     content: " ";
+    //     height: 0;
+    //     width: 0;
+    //     position: absolute;
+    //     pointer-events: none;
+    //   }
+
+    //   &:after {
+    //     border-color: rgba(255, 255, 255, 0);
+    //     border-top-color: #ffffff;
+    //     border-width: 30px;
+    //     margin-left: -30px;
+    //   }
+
+    //   &:before {
+    //     border-color: rgba(30, 144, 255, 0);
+    //     border-top-color: #1e90ff;
+    //     border-width: 36px;
+    //     margin-left: -36px;
+    //   }
+    // }
+
   }
-  &:last-child{
+
+  &:last-child {
     border-bottom: 1px solid #e0e0e0;
   }
 }

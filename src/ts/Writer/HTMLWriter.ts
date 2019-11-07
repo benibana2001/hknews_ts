@@ -33,11 +33,12 @@ export default class HTMLWriter implements Writer {
         **  - .Card
         **      - a.Anchor Area
         **          - .rank
-        **          - .title//TODO: Storyに変更
+        **          - .Story
         **              - .title
         **              - .metadata
         **                  - .link-text
-        **                  - span.inline-block(score, by)
+        **                  - span.inline-block(points)
+        **                  - span.inline-block(by)
         **                  - span.inline-block(unixTime, comment(length of kids))
         **              - .title
         **          - a.score
@@ -92,11 +93,15 @@ export default class HTMLWriter implements Writer {
             // .STORY > METADATA
             let commentNum = sd.kids ? sd.kids.length : 0
             let metaData: DOMElement = this.domElementsEditor.createDiv(story.elem, ['meta-data'], null)
-            let inlineBlock01: DOMElement = this.domElementsEditor.createElem('span', metaData.elem, ['inline-block'], null, `${sd.score} points by ${sd.by}`, null)
-            let inlineBlock02: DOMElement = this.domElementsEditor.createElem('span', metaData.elem, ['inline-block'], null, ` X hours ago , ${commentNum} comments`, null)
+            let inlineBlock01: DOMElement = this.domElementsEditor.createElem('span', metaData.elem, ['inline-block', 'points'], null, `${sd.score} `, null)
+            let inlineBlock02: DOMElement = this.domElementsEditor.createElem('span', metaData.elem, ['inline-block'], null, `points by ${sd.by} `, null)
+            let inlineBlock03: DOMElement = this.domElementsEditor.createElem('span', metaData.elem, ['inline-block'], null, `X hours ago, `, null)
+            let inlineBlock04: DOMElement = this.domElementsEditor.createElem('span', metaData.elem, ['inline-block', 'comment-num'], null, `${commentNum} `, null)
+            let inlineBlock05: DOMElement = this.domElementsEditor.createElem('span', metaData.elem, ['inline-block'], null, `comments`, null)
             // .SCORE
             let score: DOMElement = this.domElementsEditor.createAnchor(card.elem, ['score'], null, null, 'Link to Hacker News comment page')
-            let scoreSpan: DOMElement = this.domElementsEditor.createElem('span', score.elem, ['scoreSpan'], null, String(sd.score), null)
+            // let scoreSpan: DOMElement = this.domElementsEditor.createElem('span', score.elem, ['scoreSpan', 'arrow_box'], null, null, null)
+            let scoreSpan: DOMElement = this.domElementsEditor.createDiv(score.elem, ['scoreSpan', 'arrow_box'], null)
             
             rank.add()
             story.add()
@@ -104,6 +109,9 @@ export default class HTMLWriter implements Writer {
             metaData.add()
             inlineBlock01.add()
             inlineBlock02.add()
+            inlineBlock03.add()
+            inlineBlock04.add()
+            inlineBlock05.add()
             anchorArea.add()
             scoreSpan.add()
             score.add()
