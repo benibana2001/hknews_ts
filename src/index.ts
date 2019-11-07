@@ -6,20 +6,22 @@ import { StoryData } from './ts/HKNews'
 
 const renderer: Render = new Render()
 const packetManager: PacketManager = new PacketManager()
+const triggerRenderPercent: number = 0.93
 
 window.addEventListener('scroll', () => {
-    window.requestAnimationFrame(async (): Promise<any> => {
-        if (reachedPageBttmFrom(0.93)) {
-            if (renderer.isLockedRendering === false) {
-                await render()
-            } else {
-                // console.log("")
-            }
-        } else {
-            await load()
-        }
-    })
+    window.requestAnimationFrame(animation)
 })
+let animation = async (): Promise<any> => {
+    if (reachedPageBttmFrom(triggerRenderPercent)) {
+        if (renderer.isLockedRendering === false) {
+            await render()
+        } else {
+            // console.log("")
+        }
+    } else {
+        await load()
+    }
+}
 
 let isLoaded: boolean = false
 
@@ -58,10 +60,17 @@ let render = async (): Promise<any> => {
 
 render()
 
-// let avoidLock = () => {
-//     if(reachedPageBttmFrom(0.99)) {
-//         render()
-//     }
-//     setTimeout(avoidLock, 500)
-// }
-// avoidLock()
+let elem: HTMLElement | null = document.getElementById('header')
+let avoidLock = async(): Promise<any> => {
+    if (reachedPageBttmFrom(0.99)) {
+        if (elem !== null) elem.style.backgroundColor = "#FF0000"
+        if (renderer.isLockedRendering === false) {
+            await render()
+        }
+    } else {
+        if (elem !== null) elem.style.backgroundColor = "#FFFFFF"
+    }
+    window.requestAnimationFrame(avoidLock)
+}
+
+window.requestAnimationFrame(avoidLock)
