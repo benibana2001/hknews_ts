@@ -86,12 +86,24 @@ export default class HTMLWriter implements Writer {
         if (isCard) {
             let anchorArea: DOMElement = this.domElementsEditor.createAnchor(card.elem, ['anchorArea'], sd.url, null, 'Link to external site')
             let rank: DOMElement = this.domElementsEditor.createDiv(anchorArea.elem, ['rank'], String(sd.rank))
-            let title: DOMElement = this.domElementsEditor.createDiv(anchorArea.elem, ['title'], sd.title)
+            // .STORY
+            let story: DOMElement = this.domElementsEditor.createDiv(anchorArea.elem, ['story'], null)
+            let title: DOMElement = this.domElementsEditor.createDiv(story.elem, ['title'], sd.title)
+            // .STORY > METADATA
+            let commentNum = sd.kids ? sd.kids.length : 0
+            let metaData: DOMElement = this.domElementsEditor.createDiv(story.elem, ['meta-data'], null)
+            let inlineBlock01: DOMElement = this.domElementsEditor.createElem('span', metaData.elem, ['inline-block'], null, `${sd.score} points by ${sd.by}`, null)
+            let inlineBlock02: DOMElement = this.domElementsEditor.createElem('span', metaData.elem, ['inline-block'], null, ` X hours ago , ${commentNum} comments`, null)
+            // .SCORE
             let score: DOMElement = this.domElementsEditor.createAnchor(card.elem, ['score'], null, null, 'Link to Hacker News comment page')
             let scoreSpan: DOMElement = this.domElementsEditor.createElem('span', score.elem, ['scoreSpan'], null, String(sd.score), null)
             
             rank.add()
+            story.add()
             title.add()
+            metaData.add()
+            inlineBlock01.add()
+            inlineBlock02.add()
             anchorArea.add()
             scoreSpan.add()
             score.add()

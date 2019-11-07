@@ -7,7 +7,7 @@ interface StoryData {
     by?: string,
     descendant?: number[],
     id: number,
-    kids?: any,
+    kids?: number[],
     score?: number,
     time?: number,
     title?: string,

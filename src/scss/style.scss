@@ -107,9 +107,14 @@ header{
       color: #888;
     }
   }
-  .title{
+  .story{
     margin-left: 4ex;
     padding-left: 5px;
+    .meta-data {
+      display: block;
+      font-size: 14px;
+      color: #666d74;
+    }
   }
   .rank{
     font-weight: lighter;
