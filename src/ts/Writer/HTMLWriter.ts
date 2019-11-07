@@ -33,7 +33,13 @@ export default class HTMLWriter implements Writer {
         **  - .Card
         **      - a.Anchor Area
         **          - .rank
-        **          - .title
+        **          - .title//TODO: Storyに変更
+        **              - .title
+        **              - .metadata
+        **                  - .link-text
+        **                  - span.inline-block(score, by)
+        **                  - span.inline-block(unixTime, comment(length of kids))
+        **              - .title
         **          - a.score
         **              - span
         ****************************j
