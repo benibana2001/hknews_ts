@@ -65,14 +65,16 @@ export default class HTMLWriter implements Writer {
             isCommentCard = isCard && (!isStoryCard) ? true : false
         }
 
-        let setCommentURL = (sd: StoryData): void => {
-            sd.url = URL.HKN_COMMENT_ORIGIN + String(sd.id)
+        let commentURL: string = URL.HKN_COMMENT_ORIGIN + String(sd.id)
+
+        let setCommentURL = (): void => {
+            sd.url = commentURL
         }
 
         let initCard = (sd: StoryData): void => {
             applyCardType(sd)
             if (isCommentCard) {
-                setCommentURL(sd)
+                setCommentURL()
                 // console.log("COMMENT CARD: ", sd.rank)
             } else if (isStoryCard) {
                 // console.log("STORY CARD: ", sd.rank)
@@ -99,7 +101,7 @@ export default class HTMLWriter implements Writer {
             let inlineBlock04: DOMElement = this.domElementsEditor.createElem('span', metaData.elem, ['inline-block', 'comment-num'], null, `${commentNum} `, null)
             let inlineBlock05: DOMElement = this.domElementsEditor.createElem('span', metaData.elem, ['inline-block'], null, `comments`, null)
             // .SCORE
-            let score: DOMElement = this.domElementsEditor.createAnchor(card.elem, ['score'], null, null, 'Link to Hacker News comment page')
+            let score: DOMElement = this.domElementsEditor.createAnchor(card.elem, ['score'], commentURL, null, 'Link to Hacker News comment page')
             // let scoreSpan: DOMElement = this.domElementsEditor.createElem('span', score.elem, ['scoreSpan', 'arrow_box'], null, null, null)
             let scoreSpan: DOMElement = this.domElementsEditor.createDiv(score.elem, ['scoreSpan', 'arrow_box'], null)
             
