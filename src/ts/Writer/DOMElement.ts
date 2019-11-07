@@ -52,6 +52,10 @@ export default class DOMElement {
         this.parent.appendChild(this.elem)
     }
 
+    public remove(): void {
+        this.parent.removeChild(this.elem)
+    }
+
     // フェード用クラス
     public async addClass(className: string): Promise<any> {
         return new Promise((resolve, reject) => {

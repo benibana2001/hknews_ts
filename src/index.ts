@@ -62,6 +62,7 @@ render()
 
 let elem: HTMLElement | null = document.getElementById('header')
 let avoidLock = async(): Promise<any> => {
+    // TODO 全件ロード時はずっとロックしてしまう
     if (reachedPageBttmFrom(0.99)) {
         if (elem !== null) elem.style.backgroundColor = "#FF0000"
         if (renderer.isLockedRendering === false) {

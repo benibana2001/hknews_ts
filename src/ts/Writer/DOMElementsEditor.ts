@@ -31,4 +31,8 @@ export default class DOMElementsEditor {
     ): DOMElement {
         return this.createElem('a', parent, classNameArr, url, text, ariaLabel)
     }
+
+    public removeElem(parent: Element, elem: Element): void {
+        parent.removeChild(elem)
+    }
 }

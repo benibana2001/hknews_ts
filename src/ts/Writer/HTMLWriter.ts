@@ -24,6 +24,15 @@ export default class HTMLWriter implements Writer {
         if (elemH1 !== null) elemH1.textContent = "HKNews App Iwase"
     }
 
+    // TODO: 削除用途にIDを付与できるようにする
+    private addLoadingIcon(parent: Element) {
+        let card: DOMElement = this.domElementsEditor.createDiv(parent, ['card'], 'Loading...')
+    }
+
+    private removeLoadingIcon(parent: Element) {
+
+    }
+
     private async writeCard(parent: Element, sd: StoryData): Promise<any> {
         /*
         ** *************************
