@@ -28,7 +28,7 @@ export default class Render {
         this._isLockedRendering = false
     }
 
-    get isLockedRendering() : boolean {
+    get isLockedRendering(): boolean {
         return this._isLockedRendering
     }
 }

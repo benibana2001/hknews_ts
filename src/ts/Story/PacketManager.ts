@@ -9,6 +9,7 @@ export default class PacketManager {
     private stryPacket: StoryData[] = []
     private queueAry: Promise<any>[] = []// queueのPromiseを格納
     private _isLoading: boolean = false
+    //
     public loadSinglePacket = async (): Promise<any> => {
         this._isLoading = true
         await this.stryCollector.init()// 初回のみ実行される
